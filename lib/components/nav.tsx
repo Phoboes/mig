@@ -12,7 +12,7 @@ export default function Nav() {
               alt="Logo"
               title="Logo"
             />
-            <h1 className="text-2xl">FinTech</h1>
+            <h1 className="text-2xl">Migaloo</h1>
           </a>
         </Link>
       </div>
@@ -20,20 +20,72 @@ export default function Nav() {
         <Link href="/" passHref>
           <div className="group relative flex items-stretch">
             <a className="px-3 py-2 h-full bg-blue-900 text-white group-hover:bg-white group-hover:text-blue-900 leading-10 transition-colors">
-              Home
+              Maps
             </a>
             <ul className="group-hover:block hidden absolute top-full right-0 shadow-lg w-48 text-center pt-2">
-              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
-                Drop Down One
-              </li>
-              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
-                Drop Down Two
-              </li>
-              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
-                Drop Down Three
-              </li>
+              <Link href="/maps/sightings">
+                <a>
+                  <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
+                    Sightings
+                  </li>
+                </a>
+              </Link>
+              <Link href="/maps/tours">
+                <a>
+                  <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
+                    Tours
+                  </li>
+                </a>
+              </Link>
+              <Link href="/maps/vantage-points">
+                <a>
+                  <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
+                    Vantage Points
+                  </li>
+                </a>
+              </Link>
             </ul>
           </div>
+        </Link>
+        <div className="group relative flex items-stretch">
+          <a className="px-3 py-2 h-full bg-blue-900 text-white group-hover:bg-white group-hover:text-blue-900 leading-10 transition-colors">
+            Info
+          </a>
+          <ul className="group-hover:block hidden absolute top-full right-0 shadow-lg w-48 text-center pt-2">
+            <Link href="/info/tips">
+              <a>
+                <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
+                  Tips
+                </li>
+              </a>
+            </Link>
+            <Link href="/info/species">
+              <a>
+                <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
+                  Species
+                </li>
+              </a>
+            </Link>
+            <Link href="/info/behaviours">
+              <a>
+                <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
+                  Behaviours
+                </li>
+              </a>
+            </Link>
+            <Link href="/info/conservation">
+              <a>
+                <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
+                  Conservation
+                </li>
+              </a>
+            </Link>
+          </ul>
+        </div>
+        <Link href="/offers">
+          <a className="px-3 py-2 bg-blue-900 text-white hover:bg-white hover:text-blue-900 leading-10 transition-colors">
+            Offers
+          </a>
         </Link>
         <Link href="/about">
           <a className="px-3 py-2 bg-blue-900 text-white hover:bg-white hover:text-blue-900 leading-10 transition-colors">
@@ -41,7 +93,7 @@ export default function Nav() {
           </a>
         </Link>
         <Link href="/contact">
-          <a className="px-3 py-2 bg-blue-900 text-white hover:bg-white hover:text-blue-900 leading-10">
+          <a className="px-3 py-2 bg-blue-900 text-white hover:bg-white hover:text-blue-900 leading-10 transition-colors">
             Contact
           </a>
         </Link>
