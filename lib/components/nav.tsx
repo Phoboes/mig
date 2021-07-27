@@ -23,13 +23,13 @@ export default function Nav() {
               Home
             </a>
             <ul className="group-hover:block hidden absolute top-full right-0 shadow-lg w-48 text-center pt-2">
-              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2">
+              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
                 Drop Down One
               </li>
-              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2">
+              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
                 Drop Down Two
               </li>
-              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2">
+              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
                 Drop Down Three
               </li>
             </ul>
