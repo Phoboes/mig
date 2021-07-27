@@ -1,10 +1,14 @@
+import { NextSeo } from "next-seo";
 import withMapLayout from "layouts/withMapLayout";
 
 function VantagePoints() {
   return (
-    <div>
-      <h2>Vantage Points</h2>
-    </div>
+    <>
+      <NextSeo title={`Migaloo - Vantage Points`} />
+      <div>
+        <h2>Vantage Points</h2>
+      </div>
+    </>
   );
 }
 

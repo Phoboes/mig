@@ -1,10 +1,14 @@
+import { NextSeo } from "next-seo";
 import withMapLayout from "layouts/withMapLayout";
 
 function Tours() {
   return (
-    <div>
-      <h2>Tours</h2>
-    </div>
+    <>
+      <NextSeo title={`Migaloo - Tours`} />
+      <div>
+        <h2>Tours</h2>
+      </div>
+    </>
   );
 }
 

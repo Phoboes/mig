@@ -1,10 +1,14 @@
+import { NextSeo } from "next-seo";
 import withContentLayout from "layouts/withContentLayout";
 
 function Offers() {
   return (
-    <div>
-      <h2>Offers</h2>
-    </div>
+    <>
+      <NextSeo title={`Migaloo - Offers`} />
+      <div>
+        <h2>Offers</h2>
+      </div>
+    </>
   );
 }
 
