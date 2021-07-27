@@ -17,10 +17,23 @@ export default function Nav() {
         </Link>
       </div>
       <nav className="flex flex-auto items-stretch justify-end">
-        <Link href="/">
-          <a className="px-3 py-2 bg-blue-900 text-white hover:bg-white hover:text-blue-900 leading-10 transition-colors">
-            Home
-          </a>
+        <Link href="/" passHref>
+          <div className="group relative flex items-stretch">
+            <a className="px-3 py-2 h-full bg-blue-900 text-white group-hover:bg-white group-hover:text-blue-900 leading-10 transition-colors">
+              Home
+            </a>
+            <ul className="group-hover:block hidden absolute top-full right-0 shadow-lg w-48 text-center pt-2">
+              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2">
+                Drop Down One
+              </li>
+              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2">
+                Drop Down Two
+              </li>
+              <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2">
+                Drop Down Three
+              </li>
+            </ul>
+          </div>
         </Link>
         <Link href="/about">
           <a className="px-3 py-2 bg-blue-900 text-white hover:bg-white hover:text-blue-900 leading-10 transition-colors">
