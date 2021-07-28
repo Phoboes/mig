@@ -1,10 +1,13 @@
 import { useState } from "react";
 import Link from "next/link";
 
-function NavLink({ link, text }) {
+function NavLink({ link, text, isDropdown = false }) {
+  const classes = isDropdown
+    ? "hover:bg-white bg-blue-100 text-blue-900 md:text-white md:bg-blue-900 md:hover:bg-white md:hover:text-blue-900 hover:shadow-inner"
+    : "bg-blue-900 hover:bg-white hover:text-blue-900";
   return (
     <Link href={link}>
-      <a className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors leading-10 px-3 block">
+      <a className={`${classes} py-2 transition-colors leading-10 px-3 block`}>
         {text}
       </a>
     </Link>
@@ -13,7 +16,9 @@ function NavLink({ link, text }) {
 
 function DropDown({ text, items, subMenu, setSubMenu }) {
   const markup = items.map(([link, text]) => {
-    return <NavLink link={link} text={text} key={`navlink-${link}`} />;
+    return (
+      <NavLink link={link} text={text} key={`navlink-${link}`} isDropdown />
+    );
   });
   return (
     <div className="group relative flex items-stretch flex-wrap">
