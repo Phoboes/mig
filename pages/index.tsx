@@ -1,14 +1,15 @@
 import { NextSeo } from "next-seo";
-import withMapLayout from "layouts/withMapLayout";
-import Map from "components/map";
+import withContentLayout from "layouts/withContentLayout";
 
 function Home() {
   return (
     <>
       <NextSeo title={`Migaloo - Home`} />
-      <Map />
+      <div>
+        <h2>Home</h2>
+      </div>
     </>
   );
 }
 
-export default withMapLayout(Home);
+export default withContentLayout(Home);
