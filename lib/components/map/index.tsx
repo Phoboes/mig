@@ -19,6 +19,7 @@ function Map() {
         options={{
           mapTypeControl: false,
           streetViewControl: false,
+          disableDefaultUI: true,
         }}
       ></GoogleMap>
     </LoadScript>
