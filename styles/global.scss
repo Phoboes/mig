@@ -19,4 +19,11 @@
     width: 10px;
     z-index: 100;
   }
+
+  button img {
+    background: #000;
+    background-image: url("https://fillmurray.com/400/400");
+    background-size: contain;
+    display: none;
+  }
 }

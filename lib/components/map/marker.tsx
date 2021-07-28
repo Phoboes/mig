@@ -14,7 +14,10 @@ export default function MyMarker({
       }}
     >
       {isActive && (
-        <InfoWindow position={{ lat, lng }}>
+        <InfoWindow
+          position={{ lat, lng }}
+          onCloseClick={() => setActivePosition(null)}
+        >
           <div className="text-center">
             <h2 className="text-lg m-0">Whale Sightings</h2>
             <hr className="my-1" />
