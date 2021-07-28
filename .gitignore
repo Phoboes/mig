@@ -147,3 +147,4 @@ $RECYCLE.BIN/
 .Trash-*
 accessed
 .nfs*
+!.env.local.example
