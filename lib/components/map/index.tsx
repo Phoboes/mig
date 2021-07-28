@@ -1,5 +1,6 @@
-import { memo } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { memo, useState } from "react";
+import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import MyMarker from "components/map/marker";
 
 const center = {
   lat: -33.79063314253369,
@@ -13,8 +14,18 @@ const tempMarkers = [
 ];
 
 function Map() {
+  const [activePosition, setActivePosition] = useState(null);
+
   const markers = tempMarkers.map(([lat, lng]) => {
-    return <Marker position={{ lat, lng }} key={`${lat}${lng}-marker`} />;
+    return (
+      <MyMarker
+        lat={lat}
+        lng={lng}
+        key={`${lat}${lng}-marker`}
+        setActivePosition={setActivePosition}
+        isActive={activePosition === `${lat},${lng}`}
+      />
+    );
   });
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
@@ -31,6 +42,7 @@ function Map() {
           disableDefaultUI: true,
         }}
         onClick={({ latLng: { lat, lng } }) => {
+          setActivePosition(null);
           console.log(lat(), lng());
         }}
       >
