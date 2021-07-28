@@ -45,7 +45,10 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const [subMenu, setSubMenu] = useState(null);
   return (
-    <header className="fixed top-0 left-0 w-full h-14 shadow-md bg-blue-900 text-white flex pl-2 items-stretch z-50">
+    <header
+      className="fixed top-0 left-0 w-full h-14 shadow-md bg-blue-900 text-white flex pl-2 items-stretch z-50"
+      onMouseLeave={() => setOpen(false)}
+    >
       <div className="flex items-center">
         <Link href="/">
           <a className="flex items-center">
