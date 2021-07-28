@@ -16,6 +16,10 @@ function Map() {
         }}
         center={center}
         zoom={13}
+        options={{
+          mapTypeControl: false,
+          streetViewControl: false,
+        }}
       ></GoogleMap>
     </LoadScript>
   );
