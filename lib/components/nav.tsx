@@ -96,7 +96,7 @@ export default function Nav() {
           <NavLink link={"/about"} text="About" />
           <NavLink link={"/contact"} text="Contact" />
           <NavLink link={"/auth/login"} text="Login" />
-          <NavLink link={"/auth/register"} text="Register" />
+          <NavLink link={"/auth/sign-up"} text="Sign Up" />
         </div>
       </nav>
     </header>
