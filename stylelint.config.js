@@ -9,6 +9,7 @@ module.exports = {
   //   "scss/at-rule-no-unknown": null,
   // },
   rules: {
+    "max-nesting-depth": 5,
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": [
       true,
