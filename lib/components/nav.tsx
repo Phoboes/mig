@@ -1,5 +1,40 @@
-import Link from "next/link";
 import { useState } from "react";
+import Link from "next/link";
+
+function NavLink({ link, text }) {
+  return (
+    <Link href={link}>
+      <a className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors leading-10 px-3 block">
+        {text}
+      </a>
+    </Link>
+  );
+}
+
+function DropDown({ text, items, subMenu, setSubMenu }) {
+  const markup = items.map(([link, text]) => {
+    return <NavLink link={link} text={text} key={`navlink-${link}`} />;
+  });
+  return (
+    <div className="group relative flex items-stretch flex-wrap">
+      <a
+        className="px-3 py-2 h-full bg-blue-900 text-white group-hover:bg-white group-hover:text-blue-900 group-active:bg-white group-active:text-blue-900 leading-10 transition-colors w-full md:w-auto"
+        onClick={() => setSubMenu(text)}
+        onMouseEnter={() => setSubMenu(text)}
+        onMouseLeave={() => setSubMenu(null)}
+      >
+        {text}
+      </a>
+      <div
+        className={`group-hover:block ${
+          subMenu === text ? "block" : "hidden"
+        } md:absolute top-full right-0 md:shadow-lg w-full md:w-48 text-center md:pt-2`}
+      >
+        {markup}
+      </div>
+    </div>
+  );
+}
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
@@ -31,102 +66,30 @@ export default function Nav() {
             open ? "flex" : "hidden"
           } md:static absolute top-14 w-full flex-col md:flex-row md:w-auto text-center`}
         >
-          <div className="group relative flex flex-wrap items-stretch">
-            <a
-              className="px-3 py-2 h-full bg-blue-900 text-white group-hover:bg-white group-hover:text-blue-900 group-active:bg-white group-active:text-blue-900 leading-10 transition-colors w-full md:w-auto"
-              onClick={() => setSubMenu("maps")}
-              onMouseEnter={() => setSubMenu("maps")}
-              onMouseLeave={() => setSubMenu(null)}
-            >
-              Maps
-            </a>
-            <ul
-              className={`group-hover:block ${
-                subMenu === "maps" ? "block" : "hidden"
-              } md:absolute top-full right-0 md:shadow-lg w-full md:w-48 text-center md:pt-2`}
-            >
-              <Link href="/maps/sightings">
-                <a>
-                  <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
-                    Sightings
-                  </li>
-                </a>
-              </Link>
-              <Link href="/maps/tours">
-                <a>
-                  <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
-                    Tours
-                  </li>
-                </a>
-              </Link>
-              <Link href="/maps/vantage-points">
-                <a>
-                  <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
-                    Vantage Points
-                  </li>
-                </a>
-              </Link>
-            </ul>
-          </div>
-          <div className="group relative flex items-stretch flex-wrap">
-            <a
-              className="px-3 py-2 h-full bg-blue-900 text-white group-hover:bg-white group-hover:text-blue-900 group-active:bg-white group-active:text-blue-900 leading-10 transition-colors w-full md:w-auto"
-              onClick={() => setSubMenu("info")}
-              onMouseEnter={() => setSubMenu("info")}
-              onMouseLeave={() => setSubMenu(null)}
-            >
-              Info
-            </a>
-            <ul
-              className={`group-hover:block ${
-                subMenu === "info" ? "block" : "hidden"
-              } md:absolute top-full right-0 md:shadow-lg w-full md:w-48 text-center md:pt-2`}
-            >
-              <Link href="/info/tips">
-                <a>
-                  <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
-                    Tips
-                  </li>
-                </a>
-              </Link>
-              <Link href="/info/species">
-                <a>
-                  <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
-                    Species
-                  </li>
-                </a>
-              </Link>
-              <Link href="/info/behaviours">
-                <a>
-                  <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
-                    Behaviours
-                  </li>
-                </a>
-              </Link>
-              <Link href="/info/conservation">
-                <a>
-                  <li className="bg-blue-900 hover:bg-white hover:text-blue-900 py-2 transition-colors">
-                    Conservation
-                  </li>
-                </a>
-              </Link>
-            </ul>
-          </div>
-          <Link href="/offers">
-            <a className="px-3 py-2 bg-blue-900 text-white hover:bg-white hover:text-blue-900 leading-10 transition-colors">
-              Offers
-            </a>
-          </Link>
-          <Link href="/about">
-            <a className="px-3 py-2 bg-blue-900 text-white hover:bg-white hover:text-blue-900 leading-10 transition-colors">
-              About
-            </a>
-          </Link>
-          <Link href="/contact">
-            <a className="px-3 py-2 bg-blue-900 text-white hover:bg-white hover:text-blue-900 leading-10 transition-colors">
-              Contact
-            </a>
-          </Link>
+          <DropDown
+            subMenu={subMenu}
+            setSubMenu={setSubMenu}
+            text={"Maps"}
+            items={[
+              ["/maps/sightings", "Sightings"],
+              ["/maps/tours", "Tours"],
+              ["/maps/vantage-points", "Vantage Points"],
+            ]}
+          />
+          <DropDown
+            subMenu={subMenu}
+            setSubMenu={setSubMenu}
+            text={"Info"}
+            items={[
+              ["/info/behaviours", "Behaviours"],
+              ["/info/conservation", "Conservation"],
+              ["/info/species", "Species"],
+              ["/info/tips", "Tips"],
+            ]}
+          />
+          <NavLink link={"/offers"} text="Offers" />
+          <NavLink link={"/about"} text="About" />
+          <NavLink link={"/contact"} text="Contact" />
         </div>
       </nav>
     </header>
