@@ -64,7 +64,7 @@ export default function Nav() {
       </div>
       <nav className="flex flex-auto items-stretch justify-end">
         <h3
-          className="px-3 py-2 h-full leading-10 md:hidden block"
+          className="px-3 py-2 h-full leading-10 md:hidden block cursor-pointer"
           onClick={() => setOpen(!open)}
         >
           {open ? "Close Menu" : "Open Menu"}

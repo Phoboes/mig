@@ -23,3 +23,12 @@
 - [Figma](https://www.figma.com/file/TnKcoDryeOl5iudXJ1PQjq/fintech?node-id=0%3A1)
 - [Jira](https://studio-modular.atlassian.net/jira/software/projects/WHAL/boards/2)
 - [Confluence](https://studio-modular.atlassian.net/wiki/spaces/WHAL/pages)
+
+## Suggested VS Code Extensions
+
+- Better Comments
+- DotENV
+- EditorConfig for VS Code
+- Prettier - Code Formatter
+- Stylelint
+- Tailwind CSS IntelliSense
