@@ -12,7 +12,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install",
+    "prepare": "husky install && npx husky add .husky/pre-commit \"npx lint-staged\"",
     "ts:generate-types": "scripts/generateTypes.sh"
   },
   "lint-staged": {
