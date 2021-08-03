@@ -12,7 +12,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "npx mrm@2 lint-staged && husky install",
+    "prepare": "husky install",
     "ts:generate-types": "scripts/generateTypes.sh"
   },
   "lint-staged": {
@@ -24,10 +24,7 @@
     "*.{css,scss}": [
       "stylelint",
       "prettier --write"
-    ],
-    "*.js": "eslint --cache --fix",
-    "*.css": "stylelint --fix",
-    "*.{js,css,md}": "prettier --write"
+    ]
   },
   "devDependencies": {
     "@types/node": "^16.4.3",
