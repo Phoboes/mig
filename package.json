@@ -18,10 +18,7 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": "eslint --cache --fix",
     "*.{js,ts,jsx,tsx,css,scss,md,json}": "prettier --write",
-    "*.{css,scss}": "stylelint",
-    "*.js": "eslint --cache --fix",
-    "*.css": "stylelint --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{css,scss}": "stylelint"
   },
   "devDependencies": {
     "@types/node": "^16.4.3",
