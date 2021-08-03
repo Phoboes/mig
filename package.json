@@ -24,7 +24,10 @@
     "*.{css,scss}": [
       "stylelint",
       "prettier --write"
-    ]
+    ],
+    "*.js": "eslint --cache --fix",
+    "*.css": "stylelint --fix",
+    "*.{js,css,md}": "prettier --write"
   },
   "devDependencies": {
     "@types/node": "^16.4.3",
