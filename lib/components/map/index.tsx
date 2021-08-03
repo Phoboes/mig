@@ -41,9 +41,8 @@ function Map() {
           streetViewControl: false,
           disableDefaultUI: true,
         }}
-        onClick={({ latLng: { lat, lng } }) => {
+        onClick={() => {
           setActivePosition(null);
-          console.log(lat(), lng());
         }}
       >
         {markers}

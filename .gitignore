@@ -148,4 +148,7 @@ $RECYCLE.BIN/
 accessed
 .nfs*
 !.env.local.example
+<<<<<<< HEAD
 .vscode
+=======
+>>>>>>> ac5489a68d2a9b54e99c2c913591f17bc826dc04

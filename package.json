@@ -12,16 +12,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "npx mrm@2 lint-staged && husky install",
+    "prepare": "husky install && npx husky add .husky/pre-commit \"npx lint-staged\"",
     "ts:generate-types": "scripts/generateTypes.sh"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx}": "eslint --cache --fix",
-    "*.{js,ts,jsx,tsx,css,scss,md}": "prettier --write",
-    "*.{css,scss}": "stylelint",
-    "*.js": "eslint --cache --fix",
-    "*.css": "stylelint --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ],
+    "*.{md,json}": "prettier --write",
+    "*.{css,scss}": [
+      "stylelint",
+      "prettier --write"
+    ]
   },
   "devDependencies": {
     "@types/node": "^16.4.3",
@@ -49,9 +52,11 @@
     "@react-google-maps/api": "^2.2.0",
     "classnames": "^2.3.1",
     "dotenv": "^10.0.0",
+    "formik": "^2.2.9",
     "next": "^11.0.1",
     "next-seo": "^4.26.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "yup": "^0.32.9"
   }
 }

@@ -4,10 +4,6 @@ module.exports = {
     "stylelint-prettier/recommended",
   ],
   plugins: ["stylelint-scss"],
-  // rules: {
-  //   "at-rule-no-unknown": null,
-  //   "scss/at-rule-no-unknown": null,
-  // },
   rules: {
     "max-nesting-depth": 5,
     "at-rule-no-unknown": null,
