@@ -16,9 +16,15 @@
     "ts:generate-types": "scripts/generateTypes.sh"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx}": "eslint --cache --fix",
-    "*.{js,ts,jsx,tsx,css,scss,md,json}": "prettier --write",
-    "*.{css,scss}": "stylelint"
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ],
+    "*.{md,json}": "prettier --write",
+    "*.{css,scss}": [
+      "stylelint",
+      "prettier --write"
+    ]
   },
   "devDependencies": {
     "@types/node": "^16.4.3",
