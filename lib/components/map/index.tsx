@@ -42,7 +42,8 @@ function Map() {
           disableDefaultUI: true,
         }}
         onClick={() => {
-          setActivePosition(null);
+          // Disabled due to breaking overlays for now
+          // setActivePosition(null);
         }}
       >
         {markers}
