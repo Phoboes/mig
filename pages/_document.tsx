@@ -11,6 +11,14 @@ class MyDocument extends Document {
       <Html>
         <Head />
         <body>
+          <div
+            id="portal-root"
+            style={{
+              position: "absolute",
+              left: "0px",
+              top: "0px",
+            }}
+          />
           <Main />
           <NextScript />
         </body>

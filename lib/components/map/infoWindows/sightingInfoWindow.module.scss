@@ -1,0 +1,55 @@
+@keyframes expand {
+  0% {
+    max-height: 10px;
+  }
+  50% {
+    max-height: 30px;
+    padding: 1em;
+  }
+  100% {
+    max-height: 200px;
+    padding: 1em;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.speech-bubble {
+  position: relative;
+  .content-wrapper {
+    animation: expand 0.2s ease-in 0s 1 forwards;
+    background-color: #ffff;
+    border-radius: 1em;
+    bottom: 0;
+    max-height: 0;
+    position: absolute;
+    width: 100%;
+    span,
+    h2,
+    hr {
+      animation: fade-in 0.2s ease-in 0.2s 1 forwards;
+      opacity: 0;
+    }
+  }
+  &::after {
+    border: 21px solid transparent;
+    border-bottom: 0;
+    border-top-color: rgba(59, 56, 56, 0.699);
+    bottom: 0;
+    content: "";
+    height: 0;
+    left: 50%;
+    margin-bottom: -21px;
+    margin-left: -21px;
+    position: absolute;
+    width: 0;
+  }
+}
