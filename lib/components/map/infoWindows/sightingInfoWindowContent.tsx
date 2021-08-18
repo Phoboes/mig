@@ -53,9 +53,9 @@ export default function SightingInfoWindowContent({
           return { x: offsets.x, y: offsets.y };
         }}
         mapPaneName={"floatPane"}
-        onCloseClick={() => {
-          setInfoWindow(null);
-        }}
+        // onCloseClick={() => {
+        //   setInfoWindow(null);
+        // }}
         onLoad={(e) => {
           // Once this component renders, set a record of it in the Markers component.
           // This allows the calling of .setMap, which we need to remove it from the google map.
