@@ -45,7 +45,7 @@ const DefaultMarker = ({ sighting, overlayView, setOverlayView }) => {
 
   return (
     <>
-      {/* The coloured background of the marker */}
+      {/* The coloured background of the marker */}( google &&{" "}
       <Marker
         onClick={() => {
           toggleWindowInfo(sighting);
@@ -56,7 +56,7 @@ const DefaultMarker = ({ sighting, overlayView, setOverlayView }) => {
           fillOpacity: sighting.editMode ? 0.1 : 1,
           scale: 0.09,
           strokeWeight: 0,
-          anchor: new google.maps.Point(300, 666),
+          anchor: { x: 300, y: 666 },
         }}
         position={{
           lat: parseFloat(sighting.latitude),
@@ -74,14 +74,14 @@ const DefaultMarker = ({ sighting, overlayView, setOverlayView }) => {
           fillOpacity: sighting.editMode ? 0.4 : 1,
           scale: 0.08,
           strokeWeight: 0,
-          anchor: new google.maps.Point(300, 700),
+          anchor: { x: 300, y: 700 },
         }}
         position={{
           lat: parseFloat(sighting.latitude),
           lng: parseFloat(sighting.longitude),
         }}
-      />
-
+      />{" "}
+      )
       {infoWindow && (
         <SightingInfoWindowContent
           sighting={sighting}
