@@ -80,14 +80,14 @@ const DefaultMarker = ({ sighting, overlayView, setOverlayView }) => {
           lat: parseFloat(sighting.latitude),
           lng: parseFloat(sighting.longitude),
         }}
-      />{" "}
+      />
       )
       {infoWindow && (
         <SightingInfoWindowContent
           sighting={sighting}
           closeButtonHandler={closeButtonHandler}
-          getOffset={infoWindowOffset}
-          setOffset={setInfoWindowOffset}
+          // getOffset={infoWindowOffset}
+          // setOffset={setInfoWindowOffset}
           setOverlayView={setOverlayView}
         />
       )}
