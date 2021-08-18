@@ -21,9 +21,12 @@ function Map() {
   // Sightings fetched from the database
   const [sightings, setSightings] = useState([]);
   // Loading state for the fetch request; once loaded, don't fetch more.
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   // Used as both a means of determining what stage of placing a new sighting into the system we are and a means of fading all the currently rendered markers.
-  const [editing, setEditState] = useState(false);
+  const [editState, setEditState] = useState({
+    active: false,
+    marker: { lat: null, lng: null },
+  });
   // Used to throttle events that fire constantly on map drag.
   const [mapMove, setMapMove] = useState(false);
   // The location the map centers on
@@ -38,7 +41,7 @@ function Map() {
   async function fetchSightings() {
     const { data, error } = await supabase.from("sightings").select("*");
     setSightings(data);
-    setLoading(false);
+    // setLoading(false);
     // console.log(error);
   }
 
@@ -98,12 +101,13 @@ function Map() {
           zoom={defaultZoom}
           // This is called when there's a call for a new marker but it has not yet been placed on the map.
           onClick={(e) => {
-            if (editing && editing.marker === null) {
+            if (editState.active && editState.marker.lat === null) {
               // Once the map is clicked in this 'pending' state, grab the lat/lng and use it to render a marker.
               setEditState({
+                ...editState,
                 marker: {
-                  latitude: e.latLng.lat(),
-                  longitude: e.latLng.lng(),
+                  lat: e.latLng.lat(),
+                  lng: e.latLng.lng(),
                 },
               });
             }
@@ -160,13 +164,16 @@ function Map() {
             }
           }}
           options={{
+            zoomControl: false,
             mapTypeControl: false,
+            scaleControl: false,
             streetViewControl: false,
-            disableDefaultUI: true,
+            rotateControl: false,
+            fullscreenControl: false,
             styles: mapStyle,
           }}
         >
-          <Markers sightings={sightings} editMode={editing} />
+          <Markers sightings={sightings} editMode={editState.active} />
         </GoogleMap>
       )}
     </LoadScript>
