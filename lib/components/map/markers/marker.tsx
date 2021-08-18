@@ -45,7 +45,7 @@ const DefaultMarker = ({ sighting, overlayView, setOverlayView }) => {
 
   return (
     <>
-      {/* The coloured background of the marker */}( google &&{" "}
+      {/* The coloured background of the marker */}
       <Marker
         onClick={() => {
           toggleWindowInfo(sighting);
@@ -81,7 +81,7 @@ const DefaultMarker = ({ sighting, overlayView, setOverlayView }) => {
           lng: parseFloat(sighting.longitude),
         }}
       />
-      )
+
       {infoWindow && (
         <SightingInfoWindowContent
           sighting={sighting}

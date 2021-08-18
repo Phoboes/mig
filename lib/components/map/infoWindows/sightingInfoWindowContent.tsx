@@ -14,7 +14,7 @@ import { OverlayView } from "@react-google-maps/api";
 export default function SightingInfoWindowContent({
   sighting,
   closeButtonHandler,
-  setInfoWindow,
+  // setInfoWindow,
   setOverlayView,
 }) {
   // Determines whether to display overlay with full sighting info
