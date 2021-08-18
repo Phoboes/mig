@@ -26,7 +26,7 @@ const DefaultMarker = ({ sighting, overlayView, setOverlayView }) => {
         setInfoWindow(sighting);
       }
     }
-  }, [overlayView.data, infoWindow, sighting]);
+  }, [overlayView]);
 
   // Used to toggle the infoWindow if a marker is clicked twice
   const toggleWindowInfo = (info) => {

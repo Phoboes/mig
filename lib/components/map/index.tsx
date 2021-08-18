@@ -21,7 +21,7 @@ function Map() {
   // Sightings fetched from the database
   const [sightings, setSightings] = useState([]);
   // Loading state for the fetch request; once loaded, don't fetch more.
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   // Used as both a means of determining what stage of placing a new sighting into the system we are and a means of fading all the currently rendered markers.
   const [editing, setEditState] = useState(false);
   // Used to throttle events that fire constantly on map drag.
@@ -38,8 +38,8 @@ function Map() {
   async function fetchSightings() {
     const { data, error } = await supabase.from("sightings").select("*");
     setSightings(data);
-    // setLoading(false);
-    console.log(error);
+    setLoading(false);
+    // console.log(error);
   }
 
   // Initial fetch of all sightings
@@ -51,7 +51,7 @@ function Map() {
       .on("*", () => fetchSightings())
       .subscribe();
     return () => supabase.removeSubscription(sightingSubscription);
-  });
+  }, []);
 
   // -------------------------------------------------------------
   // LOCAL STORAGE
