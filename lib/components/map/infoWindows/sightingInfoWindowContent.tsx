@@ -13,7 +13,7 @@ import { OverlayView } from "@react-google-maps/api";
 
 export default function SightingInfoWindowContent({
   sighting,
-  // closeButtonHandler,
+  closeButtonHandler,
   setInfoWindow,
   setOverlayView,
 }) {
@@ -66,6 +66,7 @@ export default function SightingInfoWindowContent({
         <div
           className={`text-left bg-white rounded-md w-40 ${styles["speech-bubble"]}`}
           ref={contentRef}
+          onClick={closeButtonHandler}
         >
           <div className={`shadow-lg ${styles["content-wrapper"]}`}>
             <div>
