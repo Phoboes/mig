@@ -50,7 +50,9 @@ function Map() {
       .from("sightings")
       .on("*", () => fetchSightings())
       .subscribe();
-    return () => supabase.removeSubscription(sightingSubscription);
+    return () => {
+      supabase.removeSubscription(sightingSubscription);
+    };
   }, []);
 
   // -------------------------------------------------------------
