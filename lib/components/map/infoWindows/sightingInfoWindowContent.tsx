@@ -50,7 +50,7 @@ export default function SightingInfoWindowContent({
     <>
       <OverlayView
         getPixelPositionOffset={() => {
-          return { x: offsets.x, y: offsets.y };
+          return { x: offsetValues.x, y: offsetValues.y };
         }}
         mapPaneName={"floatPane"}
         onCloseClick={() => {
