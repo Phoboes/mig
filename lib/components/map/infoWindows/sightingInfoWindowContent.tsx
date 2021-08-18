@@ -20,7 +20,7 @@ export default function SightingInfoWindowContent({
   // Determines whether to display overlay with full sighting info
   // const [collapsed, setCollapsed] = useState(true);
   // Offets for the InfoWindow from the Marker on the map
-  const [offsetValues, setOffsetValues] = useState(false);
+  const [offsetValues, setOffsetValues] = useState({ x: 0, y: 0 });
 
   // Ref to get the dynamic heights of InfoWindow content
   const contentRef = useRef(null);
@@ -29,21 +29,21 @@ export default function SightingInfoWindowContent({
   // };
 
   // Once the ref is set, if the offset values haven't been set, grab them from the infowindow content and set them
-  if (contentRef.current !== null && !offsetValues) {
+  if (contentRef.current !== null && offsetValues.x === 0) {
     const wrapper = contentRef.current;
     setOffsetValues({ x: wrapper.clientWidth, y: wrapper.clientHeight });
   }
 
   // In order to render the overlayView, initial x/y offsets are required
-  let offsets = { x: 0, y: 0 };
+  // let offsets = { x: 0, y: 0 };
 
-  // Offset values have been set, change the defaults.
-  if (offsetValues) {
-    offsets = {
-      x: -(offsetValues.x / 2),
-      y: -(offsetValues.y + 65),
-    };
-  }
+  // // Offset values have been set, change the defaults.
+  // if (offsetValues) {
+  //   offsets = {
+  //     x: -(offsetValues.x / 2),
+  //     y: -(offsetValues.y + 65),
+  //   };
+  // }
 
   // If the user expands the popup, render the Sighting report in an overlay above everything. /Overlay/OverlayCards/Sighting
   return (
