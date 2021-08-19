@@ -22,34 +22,78 @@
     opacity: 1;
   }
 }
+
+@keyframes collapse {
+  0% {
+    margin: 0;
+    max-height: 200px;
+    padding: 0;
+  }
+  20% {
+    height: 30px;
+    margin: 0;
+    max-height: 30px;
+    padding: 0;
+  }
+  100% {
+    height: 0;
+    margin: 0;
+    max-height: 10px;
+    padding: 0;
+  }
+}
+
 .speech-bubble {
   position: relative;
-  .content-wrapper {
+  .expand {
     animation: expand 0.2s ease-in 0s 1 forwards;
+
+    * {
+      animation: fade-in 0s ease-in 0.2s 1 forwards;
+      opacity: 0;
+    }
+  }
+
+  .close-button {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+  }
+
+  .content-wrapper {
     background-color: #ffff;
     border-radius: 1em;
     bottom: 0;
     max-height: 0;
     position: absolute;
     width: 100%;
-    span,
-    h2,
-    hr {
-      animation: fade-in 0.2s ease-in 0.2s 1 forwards;
+  }
+  .collapse {
+    animation: collapse 0.1s linear 0s 1 forwards;
+    overflow: hidden;
+    * {
       opacity: 0;
+      transition: all 0.3s;
     }
   }
-  &::after {
-    border: 21px solid transparent;
-    border-bottom: 0;
-    border-top-color: rgba(59, 56, 56, 0.699);
-    bottom: 0;
-    content: "";
-    height: 0;
-    left: 50%;
-    margin-bottom: -21px;
-    margin-left: -21px;
-    position: absolute;
-    width: 0;
-  }
+}
+
+.pointer {
+  border: 21px solid transparent;
+  border-bottom: 0;
+  border-top-color: rgba(59, 56, 56, 0.699);
+  bottom: 0;
+  content: "";
+  height: 0;
+  left: 50%;
+  margin-bottom: -21px;
+  margin-left: -21px;
+  opacity: 1;
+  position: absolute;
+  width: 0;
+}
+
+.pointer-collapse {
+  opacity: 0;
+  transition: all 0.2s;
 }

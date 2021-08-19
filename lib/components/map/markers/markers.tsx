@@ -5,10 +5,7 @@ import moment from "moment";
 // Pins handler; will ultimately handle the logic of marker icons etc, for now renders a default marker/pin.
 
 const Markers = ({ sightings, editMode }) => {
-  const [overlayViewData, setOverlayViewData] = useState({
-    data: null,
-    functions: null,
-  });
+  const [activeMarker, setActiveMarker] = useState(null);
   const markers = sightings.map((marker) => {
     // User friendly date format for time since last seen
     const momentDate = moment(marker.created_at).fromNow();
@@ -24,8 +21,10 @@ const Markers = ({ sightings, editMode }) => {
           hoursSinceSeen: hoursSinceSeen,
           editMode: editMode,
         }}
-        overlayView={overlayViewData}
-        setOverlayView={setOverlayViewData}
+        // overlayView={overlayViewData}
+        // setOverlayView={setOverlayViewData}
+        setActive={setActiveMarker}
+        active={activeMarker !== null ? marker.id === activeMarker.id : false}
       />
     );
   });

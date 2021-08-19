@@ -3,86 +3,126 @@ import { useState, useRef } from "react";
 // import ExpandArrow from "../../SVG/expandArrow";
 // import Overlay from "Components/Overlay/Overlay";
 // import SightingReport from "../../../Overlay/OverlayCards/SightingReport";
-// import CloseButton from "../../SVG/closeButton";
+import CloseButton from "../../svgs/CloseButton";
 import styles from "./sightingInfoWindow.module.scss";
 import { OverlayView } from "@react-google-maps/api";
+import Overlay from "components/overlay";
+import SightingOverlay from "../../overlay/cards/sighting";
 
 // TODO:
 // Pan to the marker if it's clicked
-// Add a collapse animation
 
 export default function SightingInfoWindowContent({
   sighting,
-  closeButtonHandler,
-  // setInfoWindow,
-  setOverlayView,
+  closed,
+  closeWindow,
 }) {
   // Determines whether to display overlay with full sighting info
-  // const [collapsed, setCollapsed] = useState(true);
+  const [expanded, setExpanded] = useState(false);
+
   // Offets for the InfoWindow from the Marker on the map
-  const [offsetValues, setOffsetValues] = useState(null);
+  const [offsetValues, setOffsetValues] = useState({ set: false, x: 0, y: 0 });
 
-  // Ref to get the dynamic heights of InfoWindow content
+  // Ref to get the dynamic heights of OverlayView content
   const contentRef = useRef(null);
-  // const toggleState = () => {
-  //   setCollapsed(!collapsed);
-  // };
-
-  // Once the ref is set, if the offset values haven't been set, grab them from the infowindow content and set them
-  if (contentRef.current !== null && offsetValues === null) {
-    const wrapper = contentRef.current;
-    setOffsetValues({ x: wrapper.clientWidth, y: wrapper.clientHeight });
-  }
-
-  // In order to render the overlayView, initial x/y offsets are required
-  let offsets = { x: 0, y: 0 };
-
-  // // Offset values have been set, change the defaults.
-  if (offsetValues !== null) {
-    offsets = {
-      x: -(offsetValues.x / 2),
-      y: -(offsetValues.y + 65),
-    };
-  }
 
   // If the user expands the popup, render the Sighting report in an overlay above everything. /Overlay/OverlayCards/Sighting
   return (
     <>
       <OverlayView
         getPixelPositionOffset={() => {
-          return { x: offsets.x, y: offsets.y };
+          return { x: offsetValues.x, y: offsetValues.y };
         }}
         mapPaneName={"floatPane"}
-        // onCloseClick={() => {
-        //   setInfoWindow(null);
-        // }}
         onLoad={(e) => {
           // Once this component renders, set a record of it in the Markers component.
-          // This allows the calling of .setMap, which we need to remove it from the google map.
-          setOverlayView({ data: sighting, functions: e });
+          const wrapper = contentRef.current;
+          setOffsetValues({
+            set: true,
+            x: -(wrapper.clientWidth / 2),
+            y: -(wrapper.clientHeight + 65),
+          });
         }}
         position={{ lat: `${sighting.latitude}`, lng: sighting.longitude }}
       >
-        <div
-          className={`text-left bg-white rounded-md w-40 ${styles["speech-bubble"]}`}
-          ref={contentRef}
-          onClick={closeButtonHandler}
-        >
-          <div className={`shadow-lg ${styles["content-wrapper"]}`}>
-            <div>
-              <span>Species:</span>
-              <h2 className="text-base font-medium text-blue-500">
-                {sighting.species}
-              </h2>
-            </div>
-            <hr className="my-1" />
-            <div className={null}>
-              <span>Last seen: </span>
-              <span className="text-blue-500 font-medium">{sighting.date}</span>
+        <>
+          <div
+            className={`text-left bg-white rounded-md w-40 ${styles["speech-bubble"]}`}
+            ref={contentRef}
+          >
+            <div
+              className={`shadow-lg ${
+                closed
+                  ? `${styles["content-wrapper"]} ${styles["collapse"]}`
+                  : `${styles["content-wrapper"]} ${styles["expand"]}`
+              }`}
+            >
+              <div
+                className={styles["close-button"]}
+                onClick={() => {
+                  closeWindow();
+                }}
+              >
+                <CloseButton classes="cursor-pointer fill-current text-blue-300 hover:text-blue-500 active:text-blue-500 w-3" />
+              </div>
+              <div>
+                <span>Species:</span>
+                <h2 className="text-base font-medium text-blue-500">
+                  {sighting.species}
+                </h2>
+              </div>
+              <hr className="my-1" />
+              <div className={null}>
+                <span>Last seen: </span>
+                <span className="text-blue-500 font-medium">
+                  {sighting.date}
+                </span>
+              </div>
+              <hr className="my-1" />
+              <div className="flex flex-col items-center">
+                {false && (
+                  <div>
+                    <p className="">Logged in</p>
+                    <p className="">Belongs to user</p>
+                    <button
+                      className="bg-blue-300 p-1 rounded font-bold text-gray-100
+                  hover:bg-blue-600 hover:text-gray-200"
+                    >
+                      Edit
+                    </button>
+                  </div>
+                )}
+                <div>
+                  <button
+                    className="bg-blue-300 p-1 rounded font-bold text-gray-100
+                  hover:bg-blue-600 hover:text-gray-200 mt-1"
+                    onClick={() => {
+                      setExpanded(true);
+                    }}
+                  >
+                    More +
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+          <div
+            className={
+              closed
+                ? `${styles.pointer} ${styles["pointer-collapse"]}`
+                : styles.pointer
+            }
+          />
+        </>
       </OverlayView>
+      {expanded && (
+        <SightingOverlay
+          toggleState={() => {
+            setExpanded(false);
+          }}
+          sighting={sighting}
+        ></SightingOverlay>
+      )}
     </>
   );
 }
