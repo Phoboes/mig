@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 // import ExpandArrow from "../../SVG/expandArrow";
 // import Overlay from "Components/Overlay/Overlay";
 // import SightingReport from "../../../Overlay/OverlayCards/SightingReport";
-import CloseButton from "../../svgs/CloseButton";
+import CloseButton from "components/svgs/closeButton";
 import styles from "./sightingInfoWindow.module.scss";
 import { OverlayView } from "@react-google-maps/api";
 // import Overlay from "components/overlay";
