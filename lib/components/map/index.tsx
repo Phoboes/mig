@@ -39,7 +39,7 @@ function Map() {
 
   // Does what it says on the tin; fetches the sightings from supabase and sets loading to false once done.
   async function fetchSightings() {
-    const { data, error } = await supabase.from("sightings").select("*");
+    const { data } = await supabase.from("sightings").select("*");
     setSightings(data);
     // setLoading(false);
     // console.log(error);
@@ -56,7 +56,7 @@ function Map() {
     return () => {
       supabase.removeSubscription(sightingSubscription);
     };
-  }, []);
+  }, [supabase, fetchSightings]);
 
   // -------------------------------------------------------------
   // LOCAL STORAGE

@@ -8,7 +8,8 @@
   ],
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "react-hooks/exhaustive-deps": "off"
   },
   "parser": "@typescript-eslint/parser",
   "plugins": [],

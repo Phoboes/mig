@@ -6,7 +6,7 @@ import { useState, useRef } from "react";
 import CloseButton from "../../svgs/CloseButton";
 import styles from "./sightingInfoWindow.module.scss";
 import { OverlayView } from "@react-google-maps/api";
-import Overlay from "components/overlay";
+// import Overlay from "components/overlay";
 import SightingOverlay from "../../overlay/cards/sighting";
 
 // TODO:
@@ -34,7 +34,7 @@ export default function SightingInfoWindowContent({
           return { x: offsetValues.x, y: offsetValues.y };
         }}
         mapPaneName={"floatPane"}
-        onLoad={(e) => {
+        onLoad={() => {
           // Once this component renders, set a record of it in the Markers component.
           const wrapper = contentRef.current;
           setOffsetValues({
