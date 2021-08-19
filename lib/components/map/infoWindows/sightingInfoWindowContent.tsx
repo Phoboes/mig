@@ -3,10 +3,11 @@ import { useState, useRef } from "react";
 // import ExpandArrow from "../../SVG/expandArrow";
 // import Overlay from "Components/Overlay/Overlay";
 // import SightingReport from "../../../Overlay/OverlayCards/SightingReport";
-import CloseButton from "../../svgs/closeButton";
+
+import CloseButton from "components/svgs/closeButton";
 import styles from "./sightingInfoWindow.module.scss";
 import { OverlayView } from "@react-google-maps/api";
-import Overlay from "components/overlay";
+// import Overlay from "components/overlay";
 import SightingOverlay from "../../overlay/cards/sighting";
 
 // TODO:
@@ -34,7 +35,7 @@ export default function SightingInfoWindowContent({
           return { x: offsetValues.x, y: offsetValues.y };
         }}
         mapPaneName={"floatPane"}
-        onLoad={(e) => {
+        onLoad={() => {
           // Once this component renders, set a record of it in the Markers component.
           const wrapper = contentRef.current;
           setOffsetValues({

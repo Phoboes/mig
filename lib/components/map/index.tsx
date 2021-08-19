@@ -2,4 +2,4 @@ function Map() {
   return <h1> Hello! </h1>;
 }
 
-export default memo(Map);
+export default Map;

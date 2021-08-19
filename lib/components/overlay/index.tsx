@@ -1,7 +1,7 @@
 // Semi-transparent overlay and content container.
 // Todo: Clicking the transparent pane  or hitting escape should close the overlay window.
 import Portal from "hocs/portal";
-import CloseButton from "components/svgs/CloseButton";
+import CloseButton from "components/svgs/closeButton";
 
 export default function Overlay({ children, toggleState }) {
   return (
