@@ -18,7 +18,6 @@ export default function LoginForm() {
     >
       {(props) => {
         const { isSubmitting } = props;
-        console.log(props);
         return (
           <Form>
             <label htmlFor="email" className="block my-2">
