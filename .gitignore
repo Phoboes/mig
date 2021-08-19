@@ -149,3 +149,4 @@ accessed
 .nfs*
 !.env.local.example
 .vscode
+.husky
