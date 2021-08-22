@@ -5,6 +5,7 @@ import Markers from "components/map/markers/markers";
 import mapStyle from "./mapStyles/water";
 import AddNewMarker from "../svgs/addNewMarker";
 import PlaceMarker from "../svgs/placeMarker";
+import DragMarker from "../svgs/dragMarker";
 import EditOverlayForm from "../overlay/cards/sightingForm";
 
 function Map() {
@@ -225,6 +226,7 @@ function Map() {
           editState.marker.lat !== null &&
           !editState.complete && (
             <div>
+              <DragMarker classes="h-28 absolute bottom-40 pointer-events-none" />
               <button
                 className="bg-green-500 mx-2 px-2 py-1 text-gray-700 font-bold rounded hover:bg-green-600 hover:text-gray-100 shadow"
                 onClick={() => {
