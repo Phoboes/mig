@@ -18,7 +18,7 @@
     "sourceType": "module",
     "ecmaFeatures": {}
   },
-  "ignorePatterns": ["next.config.js", "types/*"],
+  "ignorePatterns": ["next.config.js", "types/*", "*.scss"],
   "env": {
     "node": true,
     "browser": true

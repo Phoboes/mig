@@ -1,7 +1,5 @@
 export default function Footer() {
   return (
-    <footer className="bg-blue-100 text-black p-2">
-      <h3>Footer</h3>
-    </footer>
+    <footer className="flex justify-center w-full h-14 shadow-md bg-blue-900 text-white flex pl-2 items-stretch z-50"></footer>
   );
 }

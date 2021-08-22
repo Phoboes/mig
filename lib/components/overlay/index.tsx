@@ -3,11 +3,11 @@
 import Portal from "hocs/portal";
 import CloseButton from "components/svgs/closeButton";
 
-export default function Overlay({ children, toggleState }) {
+export default function Overlay({ children, toggleState, bg = "bg-white" }) {
   return (
     <Portal selector="#portal-root">
       <div
-        className="w-screen h-screen bg-white absolute z-10 flex justify-center bg-opacity-40"
+        className={`w-screen h-screen absolute z-10 flex justify-center bg-opacity-40 overscroll-auto ${bg}`}
         // Close the pane if the background is clicked.
         onClick={toggleState}
       >

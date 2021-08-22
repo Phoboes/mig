@@ -1,14 +1,9 @@
 import { useState, useRef } from "react";
-// import Image from "next/image";
-// import ExpandArrow from "../../SVG/expandArrow";
-// import Overlay from "Components/Overlay/Overlay";
-// import SightingReport from "../../../Overlay/OverlayCards/SightingReport";
-
 import CloseButton from "components/svgs/closeButton";
 import styles from "./sightingInfoWindow.module.scss";
 import { OverlayView } from "@react-google-maps/api";
-// import Overlay from "components/overlay";
 import SightingOverlay from "../../overlay/cards/sighting";
+import EditSightingOverlay from "../../overlay/cards/sightingForm";
 
 // TODO:
 // Pan to the marker if it's clicked
@@ -19,7 +14,7 @@ export default function SightingInfoWindowContent({
   closeWindow,
 }) {
   // Determines whether to display overlay with full sighting info
-  const [expanded, setExpanded] = useState(false);
+  const [overlayState, setOverlayState] = useState("collapsed");
 
   // Offets for the InfoWindow from the Marker on the map
   const [offsetValues, setOffsetValues] = useState({ set: false, x: 0, y: 0 });
@@ -81,13 +76,15 @@ export default function SightingInfoWindowContent({
               </div>
               <hr className="my-1" />
               <div className="flex flex-col items-center">
+                {/* Todo: True/false will be user visibility if logged in */}
                 {false && (
                   <div>
-                    <p className="">Logged in</p>
-                    <p className="">Belongs to user</p>
                     <button
                       className="bg-blue-300 p-1 rounded font-bold text-gray-100
                   hover:bg-blue-600 hover:text-gray-200"
+                      onClick={() => {
+                        setOverlayState("editing");
+                      }}
                     >
                       Edit
                     </button>
@@ -98,7 +95,7 @@ export default function SightingInfoWindowContent({
                     className="bg-blue-300 p-1 rounded font-bold text-gray-100
                   hover:bg-blue-600 hover:text-gray-200 mt-1"
                     onClick={() => {
-                      setExpanded(true);
+                      setOverlayState("expanded");
                     }}
                   >
                     More +
@@ -116,13 +113,21 @@ export default function SightingInfoWindowContent({
           />
         </>
       </OverlayView>
-      {expanded && (
+      {overlayState === "expanded" && (
         <SightingOverlay
           toggleState={() => {
-            setExpanded(false);
+            setOverlayState("collapsed");
           }}
           sighting={sighting}
         ></SightingOverlay>
+      )}{" "}
+      {overlayState === "editing" && (
+        <EditSightingOverlay
+          sighting={sighting}
+          toggleState={() => {
+            setOverlayState("collapsed");
+          }}
+        />
       )}
     </>
   );
