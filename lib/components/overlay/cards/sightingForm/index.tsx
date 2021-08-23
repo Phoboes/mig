@@ -7,11 +7,11 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const FullReport = ({ sighting, toggleState }) => {
+const FullReport = ({ sighting, toggleState, speciesList }) => {
   const [formData, setFormData] = useState({
     species: {
       id: sighting.species_id,
-      common_name: null,
+      common_name: sighting.species.common_name,
     },
     subspecies: sighting.subspecies,
     description: sighting.description,
@@ -19,18 +19,7 @@ const FullReport = ({ sighting, toggleState }) => {
 
   const [options, setOptions] = useState([]);
 
-  console.log(formData);
-  // console.log(sighting);
-
-  const {
-    id,
-    species,
-    subspecies,
-    description,
-    latitude,
-    longitude,
-    species_id,
-  } = sighting;
+  const { id, description, latitude, longitude } = sighting;
 
   const fetchOptions = async () => {
     const { data } = await supabase.from("species").select("*");
@@ -109,7 +98,6 @@ const FullReport = ({ sighting, toggleState }) => {
                 </label>
               </div>
               <AutoCompleteSelect
-                species={formData.species.id}
                 speciesList={options}
                 formData={formData}
                 setFormData={setFormData}

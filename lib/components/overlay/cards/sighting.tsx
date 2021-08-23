@@ -1,6 +1,6 @@
 import Overlay from "..";
 
-export default function Sighting({ toggleState, sighting }) {
+export default function Sighting({ toggleState, sighting, speciesList }) {
   return (
     <Overlay toggleState={toggleState}>
       <h1 className="pt-4 text-blue-500 font-bold text-xl">

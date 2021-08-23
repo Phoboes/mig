@@ -3,7 +3,7 @@ import { Marker } from "@react-google-maps/api";
 import { useState } from "react";
 import SightingInfoWindowContent from "../infoWindows/sightingInfoWindowContent";
 
-const DefaultMarker = ({ sighting, active, setActive }) => {
+const DefaultMarker = ({ sighting, active, setActive, speciesList }) => {
   const [collapse, setCollapse] = useState(false);
 
   // HSLA values determined by hours since the last sighting ranging from bright green to red
@@ -28,10 +28,6 @@ const DefaultMarker = ({ sighting, active, setActive }) => {
     <>
       {/* The coloured background of the marker */}
       <Marker
-        onClick={() => {
-          console.log("COLOUR CLICKAND STATE CHANGE");
-          // markerClickHandler();
-        }}
         icon={{
           path: "M299.1,207.7c95.2,0.8,171.6,78.8,170.9,174.2c-0.8,95.4-78.6,172.1-173.7,171.3S124.6,474.4,125.4,379C126.2,283.6,203.9,206.9,299.1,207.7z",
           fillColor: backgroundFill,
@@ -67,6 +63,7 @@ const DefaultMarker = ({ sighting, active, setActive }) => {
           sighting={sighting}
           closed={collapse}
           closeWindow={overlayViewToggleHandler}
+          speciesList={speciesList}
         />
       )}
     </>

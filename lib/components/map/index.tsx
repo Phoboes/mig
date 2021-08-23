@@ -12,13 +12,18 @@ function Map() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
+
   const mapRef = useRef(null);
 
   // -------------------------------------------------------------
   // STATES & INITIAL VARS:
-
   // Sightings fetched from the database
-  const [sightings, setSightings] = useState([]);
+  const [mapData, setMapData] = useState({
+    sightings: null,
+    species: null,
+  });
+  // Loading state for the fetch request; once loaded, don't fetch more.
+  // const [loading, setLoading] = useState(true);
   // Used as both a means of determining what stage of placing a new sighting into the system we are and a means of fading all the currently rendered markers.
   const [editState, setEditState] = useState({
     active: false,
@@ -37,13 +42,16 @@ function Map() {
 
   // Does what it says on the tin; fetches the sightings from supabase and sets loading to false once done.
   async function fetchSightings() {
-    const { data } = await supabase.from("sightings").select("*");
-    setSightings(data);
-  }
+    const sightingRes = await supabase.from("sightings").select("*");
 
-  async function fetchSpecies() {
-    const { data } = await supabase.from("species").select("*");
-    setSightings(data);
+    let data = { ...mapData, sightings: sightingRes.data };
+
+    if (mapData.species === null) {
+      const speciesRes = await supabase.from("species").select("*");
+      data = { ...data, species: speciesRes.data };
+    }
+
+    setMapData({ ...data });
   }
 
   // Initial fetch of all sightings
@@ -174,7 +182,13 @@ function Map() {
             styles: mapStyle,
           }}
         >
-          <Markers sightings={sightings} editMode={editState.active} />
+          {mapData.sightings && (
+            <Markers
+              sightings={mapData.sightings}
+              speciesList={mapData.species}
+              editMode={editState.active}
+            />
+          )}
           {/* If a lat/lng has been collected from the map, render it and set it to draggable */}
 
           {editState.active && editState.marker.lat !== null && (
@@ -249,12 +263,15 @@ function Map() {
               </button>
             </div>
           )}
-        {/* The user has clicked 'Done' */}
+        {/* The user has clicked 'Done'; render a blank form */}
         {editState.complete && (
           <EditOverlayForm
             sighting={{
               id: null,
-              species_id: null,
+              species: {
+                species_id: null,
+                common_name: null,
+              },
               description: "",
               latitude: editState.marker.lat,
               longitude: editState.marker.lng,
@@ -266,6 +283,7 @@ function Map() {
                 marker: { lat: null, lng: null },
               });
             }}
+            speciesList={mapData.species}
           />
         )}
       </div>

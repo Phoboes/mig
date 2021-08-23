@@ -10,6 +10,7 @@ import EditSightingOverlay from "../../overlay/cards/sightingForm";
 
 export default function SightingInfoWindowContent({
   sighting,
+  speciesList,
   closed,
   closeWindow,
 }) {
@@ -64,7 +65,7 @@ export default function SightingInfoWindowContent({
               <div>
                 <span>Species:</span>
                 <h2 className="text-base font-medium text-blue-500">
-                  {sighting.species}
+                  {sighting.species.common_name}
                 </h2>
               </div>
               <hr className="my-1" />
@@ -119,10 +120,12 @@ export default function SightingInfoWindowContent({
             setOverlayState("collapsed");
           }}
           sighting={sighting}
+          speciesList={speciesList}
         ></SightingOverlay>
       )}{" "}
       {overlayState === "editing" && (
         <EditSightingOverlay
+          speciesList={speciesList}
           sighting={sighting}
           toggleState={() => {
             setOverlayState("collapsed");
