@@ -5,7 +5,6 @@ export default function LoginForm() {
     <Formik
       initialValues={{ email: "", password: "" }}
       validate={(values) => {
-        console.log(values);
         const errors = {};
         return errors;
       }}
