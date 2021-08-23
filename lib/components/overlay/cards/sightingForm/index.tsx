@@ -17,18 +17,7 @@ const FullReport = ({ sighting, toggleState, speciesList }) => {
     description: sighting.description,
   });
 
-  const [options, setOptions] = useState([]);
-
   const { id, description, latitude, longitude } = sighting;
-
-  const fetchOptions = async () => {
-    const { data } = await supabase.from("species").select("*");
-    setOptions(data);
-  };
-
-  useEffect(() => {
-    fetchOptions();
-  }, []);
 
   const deleteButtonHandler = async () => {
     if (id) {
@@ -37,6 +26,7 @@ const FullReport = ({ sighting, toggleState, speciesList }) => {
         .delete()
         .match({ id });
     }
+    // todo: flash data successfully deleted
     toggleState();
   };
 
@@ -53,19 +43,19 @@ const FullReport = ({ sighting, toggleState, speciesList }) => {
       const { data, error } = await supabase
         .from("sightings")
         .update({
-          // species: formData.species,
           species_id: formData.species.id,
           description: formData.description,
         })
         .match({ id });
+      // todo: flash data successfully updated
     } else {
       const { data, error } = await supabase.from("sightings").insert({
         species_id: formData.species.id,
-        // subspecies: formData.subspecies,
         description: formData.description,
         latitude: latitude,
         longitude: longitude,
       });
+      // todo: flash data successfully created
     }
 
     toggleState();
@@ -98,7 +88,7 @@ const FullReport = ({ sighting, toggleState, speciesList }) => {
                 </label>
               </div>
               <AutoCompleteSelect
-                speciesList={options}
+                speciesList={speciesList}
                 formData={formData}
                 setFormData={setFormData}
               />

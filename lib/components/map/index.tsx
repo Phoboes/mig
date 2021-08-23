@@ -15,42 +15,48 @@ function Map() {
 
   const mapRef = useRef(null);
 
+  // TODO:
+  // Listen for a sighting ID in the url /sightings/SOME_ID, center on that marker
+
   // -------------------------------------------------------------
   // STATES & INITIAL VARS:
+
   // Sightings fetched from the database
   const [mapData, setMapData] = useState({
     sightings: null,
     species: null,
   });
-  // Loading state for the fetch request; once loaded, don't fetch more.
-  // const [loading, setLoading] = useState(true);
+
   // Used as both a means of determining what stage of placing a new sighting into the system we are and a means of fading all the currently rendered markers.
   const [editState, setEditState] = useState({
     active: false,
     complete: false,
     marker: { lat: null, lng: null },
   });
+
   // Used to throttle events that fire constantly on map drag.
   const [mapMove, setMapMove] = useState(false);
+
   // The location the map centers on
   const [center, setCenter] = useState(null);
+
   // A default zoomed out value for the map
   let defaultZoom = 10;
 
   // -------------------------------------------------------------
   // DATA:
 
-  // Does what it says on the tin; fetches the sightings from supabase and sets loading to false once done.
+  // Fetches sightings and all species if they haven't been pulled and set into the state yet
   async function fetchSightings() {
+    // TODO: This will eventually need to be queried by the user's search filters.
     const sightingRes = await supabase.from("sightings").select("*");
 
     let data = { ...mapData, sightings: sightingRes.data };
-
+    // This only really needs to be called once, whereas sightings are live, this throttles needless queries for all species.
     if (mapData.species === null) {
       const speciesRes = await supabase.from("species").select("*");
       data = { ...data, species: speciesRes.data };
     }
-
     setMapData({ ...data });
   }
 
@@ -78,7 +84,7 @@ function Map() {
     }
   }
 
-  // If there's a stored center of the map, use it, if not default to near sydney.
+  // If there's a stored center of the map, use it, if not default to near sydney -- todo: req. location & pan to there-ish.
   useEffect(() => {
     // Ensures this line only runs client side.
     if (typeof window !== "undefined") {
@@ -101,7 +107,6 @@ function Map() {
       {center && (
         <GoogleMap
           ref={mapRef}
-          // mapContainerStyle={containerStyle}
           mapContainerStyle={{
             width: "100vw",
             height: "calc(100vh - 3.5rem)",
@@ -190,7 +195,6 @@ function Map() {
             />
           )}
           {/* If a lat/lng has been collected from the map, render it and set it to draggable */}
-
           {editState.active && editState.marker.lat !== null && (
             <Marker
               icon={{
@@ -276,6 +280,7 @@ function Map() {
               latitude: editState.marker.lat,
               longitude: editState.marker.lng,
             }}
+            speciesList={mapData.species}
             toggleState={() => {
               setEditState({
                 active: false,
@@ -283,7 +288,6 @@ function Map() {
                 marker: { lat: null, lng: null },
               });
             }}
-            speciesList={mapData.species}
           />
         )}
       </div>
