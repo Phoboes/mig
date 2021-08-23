@@ -1,6 +1,7 @@
-import { useState } from "react";
-import Overlay from "..";
+import { useState, useEffect } from "react";
+import Overlay from "../..";
 import { createClient } from "@supabase/supabase-js";
+import AutoCompleteSelect from "./autoCompleteSelect";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -8,13 +9,37 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const FullReport = ({ sighting, toggleState }) => {
   const [formData, setFormData] = useState({
-    species: sighting.species,
+    species: {
+      id: sighting.species_id,
+      common_name: null,
+    },
     subspecies: sighting.subspecies,
     description: sighting.description,
   });
 
-  const { id, species, subspecies, description, latitude, longitude } =
-    sighting;
+  const [options, setOptions] = useState([]);
+
+  console.log(formData);
+  // console.log(sighting);
+
+  const {
+    id,
+    species,
+    subspecies,
+    description,
+    latitude,
+    longitude,
+    species_id,
+  } = sighting;
+
+  const fetchOptions = async () => {
+    const { data } = await supabase.from("species").select("*");
+    setOptions(data);
+  };
+
+  useEffect(() => {
+    fetchOptions();
+  }, []);
 
   const deleteButtonHandler = async () => {
     if (id) {
@@ -39,13 +64,14 @@ const FullReport = ({ sighting, toggleState }) => {
       const { data, error } = await supabase
         .from("sightings")
         .update({
-          species: formData.species,
+          // species: formData.species,
+          species_id: formData.species.id,
           description: formData.description,
         })
         .match({ id });
     } else {
       const { data, error } = await supabase.from("sightings").insert({
-        species: formData.species,
+        species_id: formData.species.id,
         // subspecies: formData.subspecies,
         description: formData.description,
         latitude: latitude,
@@ -82,44 +108,12 @@ const FullReport = ({ sighting, toggleState }) => {
                   Species:
                 </label>
               </div>
-              <input
-                className="w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline mt-1"
-                type="text"
-                defaultValue={species}
-                onChange={(e) => {
-                  setFormData({ ...formData, species: e.target.value });
-                }}
+              <AutoCompleteSelect
+                species={formData.species.id}
+                speciesList={options}
+                formData={formData}
+                setFormData={setFormData}
               />
-            </div>
-            <div className="">
-              <div>
-                <label className="text-blue-700 text-sm block font-bold">
-                  Subspecies:
-                </label>
-
-                <div className="inline-block relative w-full">
-                  <select
-                    className="w-full block mt-1 appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                    onChange={(e) => {
-                      setFormData({ ...formData, subspecies: e.target.value });
-                    }}
-                  >
-                    {/* Todo: populate this from server */}
-                    <option>{subspecies ? subspecies : "Subspecies"}</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
-                  </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg
-                      className="fill-current h-4 w-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
             </div>
             <div className="">
               <div>
@@ -140,13 +134,13 @@ const FullReport = ({ sighting, toggleState }) => {
                 onClick={formSubmitHandler}
                 className="bg-green-300 py-1 px-2 m-2 rounded-md text-gray-900 font-bold hover:bg-green-400 hover:text-gray-100"
               >
-                {id === undefined ? "Create" : "Update"}
+                {id === null ? "Create" : "Update"}
               </button>
               <button
                 onClick={deleteButtonHandler}
                 className="bg-red-300 py-1 px-2 m-2 rounded-md text-gray-900 font-bold hover:bg-red-400 hover:text-gray-100"
               >
-                {id === undefined ? "Cancel" : "Delete"}
+                {id === null ? "Cancel" : "Delete"}
               </button>
             </div>
           </form>

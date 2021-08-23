@@ -77,7 +77,7 @@ export default function SightingInfoWindowContent({
               <hr className="my-1" />
               <div className="flex flex-col items-center">
                 {/* Todo: True/false will be user visibility if logged in */}
-                {false && (
+                {true && (
                   <div>
                     <button
                       className="bg-blue-300 p-1 rounded font-bold text-gray-100
