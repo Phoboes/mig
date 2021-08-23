@@ -12,18 +12,13 @@ function Map() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
-
   const mapRef = useRef(null);
 
   // -------------------------------------------------------------
   // STATES & INITIAL VARS:
+
   // Sightings fetched from the database
-  const [sightings, setSightings] = useState({
-    sightings: null,
-    species: null,
-  });
-  // Loading state for the fetch request; once loaded, don't fetch more.
-  // const [loading, setLoading] = useState(true);
+  const [sightings, setSightings] = useState([]);
   // Used as both a means of determining what stage of placing a new sighting into the system we are and a means of fading all the currently rendered markers.
   const [editState, setEditState] = useState({
     active: false,
@@ -42,16 +37,13 @@ function Map() {
 
   // Does what it says on the tin; fetches the sightings from supabase and sets loading to false once done.
   async function fetchSightings() {
-    const sightingRes = await supabase.from("sightings").select("*");
+    const { data } = await supabase.from("sightings").select("*");
+    setSightings(data);
+  }
 
-    let data = { ...sightings, sightings: sightingRes.data };
-
-    if (sightings.species === null) {
-      const speciesRes = await supabase.from("species").select("*");
-      data = { ...data, species: speciesRes.data };
-    }
-
-    setSightings({ ...data });
+  async function fetchSpecies() {
+    const { data } = await supabase.from("species").select("*");
+    setSightings(data);
   }
 
   // Initial fetch of all sightings
@@ -182,12 +174,7 @@ function Map() {
             styles: mapStyle,
           }}
         >
-          {sightings.sightings && (
-            <Markers
-              sightings={sightings.sightings}
-              editMode={editState.active}
-            />
-          )}
+          <Markers sightings={sightings} editMode={editState.active} />
           {/* If a lat/lng has been collected from the map, render it and set it to draggable */}
 
           {editState.active && editState.marker.lat !== null && (

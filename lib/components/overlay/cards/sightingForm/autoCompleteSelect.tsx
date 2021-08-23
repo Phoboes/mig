@@ -2,10 +2,6 @@
 import { createClient } from "@supabase/supabase-js";
 import Select from "react-select";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
 const AutoCompleteSelect = ({
   species = null,
   speciesList = [],
@@ -28,6 +24,8 @@ const AutoCompleteSelect = ({
       label: formData.species.common_name,
     };
   }
+
+  console.log(formValue);
 
   return (
     speciesList.length > 0 && (
