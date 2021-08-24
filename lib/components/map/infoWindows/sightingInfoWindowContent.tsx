@@ -3,7 +3,7 @@ import CloseButton from "components/svgs/closeButton";
 import styles from "./sightingInfoWindow.module.scss";
 import { OverlayView } from "@react-google-maps/api";
 import SightingOverlay from "../../overlay/cards/sighting";
-import EditSightingOverlay from "../../overlay/cards/sightingForm";
+import EditSightingOverlay from "../../overlay/cards/forms/sightingForm";
 
 // TODO:
 // Pan to the marker if it's clicked

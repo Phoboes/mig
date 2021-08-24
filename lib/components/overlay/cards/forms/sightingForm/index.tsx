@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Overlay from "../..";
+import Overlay from "../../..";
 import { createClient } from "@supabase/supabase-js";
 import AutoCompleteSelect from "./autoCompleteSelect";
 
