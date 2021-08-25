@@ -9,6 +9,7 @@ import PlaceMarker from "../svgs/placeMarker";
 import DragMarker from "../svgs/dragMarker";
 import FilterButton from "../svgs/filterButton";
 import Filter from "../overlay/cards/forms/filters";
+import species from "pages/info/species";
 
 function Map() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -59,7 +60,29 @@ function Map() {
   // Fetches sightings and all species if they haven't been pulled and set into the state yet
   async function fetchSightings() {
     // TODO: This will eventually need to be queried by the user's search filters.
-    const sightingRes = await supabase.from("sightings").select("*");
+
+    let sightingRes = null;
+
+    if (filters.species.length !== 0) {
+      // query format is "type.eq.value,type.eq.value"
+      let speciesQueryString = ``;
+      for (let i = 0; i < filters.species.length; i++) {
+        speciesQueryString += `species_id.eq.${filters.species[i].id}`;
+        if (i < filters.species.length - 1) {
+          console.log(`${i}: ${filters.species.length - 1}`);
+          speciesQueryString += ",";
+        }
+      }
+
+      sightingRes = await supabase
+        .from("sightings")
+        .select("*")
+        .or(speciesQueryString);
+    } else if (filters.daysSinceReport !== 7) {
+      sightingRes = await supabase.from("sightings").select("*");
+    } else {
+      sightingRes = await supabase.from("sightings").select("*");
+    }
 
     let data = { ...mapData, sightings: sightingRes.data };
     // This only really needs to be called once, whereas sightings are live, this throttles needless queries for all species.
@@ -70,7 +93,7 @@ function Map() {
     setMapData({ ...data });
   }
 
-  // Initial fetch of all sightings
+  // Fetch initial sightings then listen for changes on db or filters
   useEffect(() => {
     fetchSightings();
     // Subscribe to changes in the database, update the page if they are detected.
@@ -81,7 +104,9 @@ function Map() {
     return () => {
       supabase.removeSubscription(sightingSubscription);
     };
-  }, []);
+  }, [filters]);
+
+  console.log(filters);
 
   // -------------------------------------------------------------
   // LOCAL STORAGE

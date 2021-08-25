@@ -15,7 +15,7 @@ const SearchFilters = ({ speciesList, setFilters, filters, toggleState }) => {
     if (filters.species.length === 0) {
       setCurrentFilters(speciesNames);
     } else {
-      const filterValues = filters.map((opt) => {
+      const filterValues = filters.species.map((opt) => {
         return { value: opt.id, label: opt.common_name };
       });
       setCurrentFilters(filterValues);
@@ -33,7 +33,13 @@ const SearchFilters = ({ speciesList, setFilters, filters, toggleState }) => {
         options={speciesNames}
         isMulti
         onChange={(e) => {
-          setFilters({ ...filters, species: e });
+          const formattedFilters = e.map((speciesOption) => {
+            return {
+              common_name: speciesOption.label,
+              id: speciesOption.value,
+            };
+          });
+          setFilters({ ...filters, species: formattedFilters });
         }}
       />
       <h1>Date picker here</h1>
