@@ -26,7 +26,7 @@ const SearchFilters = ({ speciesList, setFilters, filters, toggleState }) => {
 
   return (
     <Overlay toggleState={toggleState}>
-      <h1>Hello, Filtered World</h1>
+      <h1>Species list:</h1>
       <Select
         defaultValue={currentFilters}
         components={animatedComponents}
@@ -42,7 +42,24 @@ const SearchFilters = ({ speciesList, setFilters, filters, toggleState }) => {
           setFilters({ ...filters, species: formattedFilters });
         }}
       />
-      <h1>Date picker here</h1>
+      <h1>Time since sighting:</h1>
+      <Select
+        defaultValue={filters.daysSinceReport}
+        options={[
+          { label: "3 days", value: 3 },
+          { label: "Last week", value: 7 },
+          { label: "Last 2 weeks", value: 14 },
+          { label: "Last 3 months", value: 90 },
+          { label: "Last Year", value: 365 },
+          { label: "All time", value: 0 },
+        ]}
+        onChange={(e) => {
+          setFilters({
+            ...filters,
+            daysSinceReport: { value: e.value, label: e.label },
+          });
+        }}
+      />
     </Overlay>
   );
 };

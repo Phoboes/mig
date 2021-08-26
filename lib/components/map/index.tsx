@@ -1,6 +1,7 @@
 import { memo, useState, useRef, useEffect } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { createClient } from "@supabase/supabase-js";
+import moment from "moment";
 import Markers from "components/map/markers/markers";
 import mapStyle from "./mapStyles/water";
 import EditOverlayForm from "../overlay/cards/forms/sightingForm";
@@ -9,7 +10,7 @@ import PlaceMarker from "../svgs/placeMarker";
 import DragMarker from "../svgs/dragMarker";
 import FilterButton from "../svgs/filterButton";
 import Filter from "../overlay/cards/forms/filters";
-import species from "pages/info/species";
+// import species from "pages/info/species";
 
 function Map() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -33,7 +34,7 @@ function Map() {
   // Filter params
   // todo: localStorage
   const [filters, setFilters] = useState({
-    daysSinceReport: 7,
+    daysSinceReport: { label: "All time", value: 0 },
     species: [],
   });
 
@@ -62,10 +63,11 @@ function Map() {
     // TODO: This will eventually need to be queried by the user's search filters.
 
     let sightingRes = null;
+    let speciesQueryString = ``;
 
+    // Builds out a query string if there are species filters
+    // query format is "type.eq.value,type.eq.value"
     if (filters.species.length !== 0) {
-      // query format is "type.eq.value,type.eq.value"
-      let speciesQueryString = ``;
       for (let i = 0; i < filters.species.length; i++) {
         speciesQueryString += `species_id.eq.${filters.species[i].id}`;
         if (i < filters.species.length - 1) {
@@ -73,17 +75,50 @@ function Map() {
           speciesQueryString += ",";
         }
       }
+    }
 
+    // queryString, but no date range (0 === "All time")
+    if (
+      filters.daysSinceReport.value === 0 &&
+      speciesQueryString.length !== 0
+    ) {
       sightingRes = await supabase
         .from("sightings")
         .select("*")
         .or(speciesQueryString);
-    } else if (filters.daysSinceReport !== 7) {
-      sightingRes = await supabase.from("sightings").select("*");
+      // query string AND a date range
+    } else if (
+      filters.daysSinceReport.value !== 0 &&
+      speciesQueryString.length !== 0
+    ) {
+      // Set the date from the value of daysSinceReport && format for sql
+      const dateMax = moment()
+        .subtract(filters.daysSinceReport.value, "days")
+        .format("YYYY-MM-DD");
+
+      // .gte Finds all rows whose value on the stated column is greater than or equal to the specified value.
+      sightingRes = await supabase
+        .from("sightings")
+        .select("*")
+        .or(speciesQueryString)
+        .gte("created_at", dateMax);
+      // No query, but date range provided
+    } else if (
+      filters.daysSinceReport.value !== 0 &&
+      speciesQueryString.length === 0
+    ) {
+      const dateMax = moment()
+        .subtract(filters.daysSinceReport.value, "days")
+        .format("YYYY-MM-DD");
+
+      sightingRes = await supabase
+        .from("sightings")
+        .select("*")
+        .gte("created_at", dateMax);
     } else {
+      // No date range, no species filters, get everything.
       sightingRes = await supabase.from("sightings").select("*");
     }
-
     let data = { ...mapData, sightings: sightingRes.data };
     // This only really needs to be called once, whereas sightings are live, this throttles needless queries for all species.
     if (mapData.species === null) {
