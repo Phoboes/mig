@@ -8,9 +8,13 @@ const DefaultMarker = ({ sighting, active, setActive, speciesList }) => {
 
   // HSLA values determined by hours since the last sighting ranging from bright green to red
   const timedColour =
-    sighting.hoursSinceSeen > 100 ? 0 : 100 - sighting.hoursSinceSeen;
-  const timedSaturation = sighting.hoursSinceSeen < 5 ? 40 : 70;
-  const backgroundFill = `hsla(${timedColour},100%,${timedSaturation}%,1)`;
+    sighting.hoursSinceSeen > 130 ? 0 : 130 - sighting.hoursSinceSeen;
+  const timedSaturation = sighting.hoursSinceSeen < 5 ? 40 : 65;
+  const fading = sighting.hoursSinceSeen < 180;
+  const timedHue = fading ? 100 : (sighting.hoursSinceSeen / 24) * 10 * -1;
+  const backgroundFill = `hsla(${timedColour},${
+    fading ? 100 : timedHue + 100 < 20 ? timedHue - 100 : 20
+  }%,${timedSaturation}%,1)`;
 
   const overlayViewToggleHandler = () => {
     if (active) {
@@ -32,6 +36,7 @@ const DefaultMarker = ({ sighting, active, setActive, speciesList }) => {
           path: "M299.1,207.7c95.2,0.8,171.6,78.8,170.9,174.2c-0.8,95.4-78.6,172.1-173.7,171.3S124.6,474.4,125.4,379C126.2,283.6,203.9,206.9,299.1,207.7z",
           fillColor: backgroundFill,
           fillOpacity: sighting.editMode ? 0.1 : 1,
+          fillSaturation: 0,
           scale: 0.09,
           strokeWeight: 0,
           anchor: { x: 300, y: 666 },

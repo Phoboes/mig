@@ -20,8 +20,7 @@ function Map() {
 
   const mapRef = useRef(null);
 
-  // TODO:
-  // Listen for a sighting ID in the url /sightings/SOME_ID, center on that marker
+  // TODO: Listen for a sighting ID in the url /sightings/SOME_ID, center on that marker
 
   // -------------------------------------------------------------
   // STATES & INITIAL VARS:
@@ -203,9 +202,6 @@ function Map() {
         setFilters(filterState);
       }
     }
-    return () => {
-      fetchSightings();
-    };
   }, [filters]);
 
   return (
