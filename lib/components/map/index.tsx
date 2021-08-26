@@ -68,7 +68,6 @@ function Map() {
       for (let i = 0; i < filters.species.length; i++) {
         speciesQueryString += `species_id.eq.${filters.species[i].id}`;
         if (i < filters.species.length - 1) {
-          console.log(`${i}: ${filters.species.length - 1}`);
           speciesQueryString += ",";
         }
       }
@@ -168,7 +167,7 @@ function Map() {
   }, [center]);
 
   // Messy getter/setter for filter localStorage
-  useEffect(() => {
+  useEffect(async () => {
     if (typeof window !== "undefined") {
       const storage = window.localStorage;
       if (
@@ -201,9 +200,6 @@ function Map() {
     }
     return fetchSightings;
   }, []);
-
-  console.log("ACTUAL:");
-  console.log(filters);
 
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
