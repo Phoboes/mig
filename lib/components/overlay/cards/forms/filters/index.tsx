@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Select from "react-select";
-import makeAnimated from "react-select/animated";
+// import makeAnimated from "react-select/animated";
 import Overlay from "../../..";
 
 const SearchFilters = ({ speciesList, setFilters, filters, toggleState }) => {
-  const animatedComponents = makeAnimated();
+  // const animatedComponents = makeAnimated();
   const speciesNames = speciesList.map((opt) => {
     return { value: opt.id, label: opt.common_name };
   });
@@ -27,7 +27,7 @@ const SearchFilters = ({ speciesList, setFilters, filters, toggleState }) => {
       <h1>Species list:</h1>
       <Select
         defaultValue={currentFilters}
-        components={animatedComponents}
+        // components={animatedComponents}
         options={speciesNames}
         isMulti
         onChange={(e) => {

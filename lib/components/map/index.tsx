@@ -4,12 +4,14 @@ import { createClient } from "@supabase/supabase-js";
 import moment from "moment";
 import Markers from "components/map/markers/markers";
 import mapStyle from "./mapStyles/water";
-import EditOverlayForm from "../overlay/cards/forms/sightingForm";
-import AddNewMarker from "../svgs/addNewMarker";
-import PlaceMarker from "../svgs/placeMarker";
-import DragMarker from "../svgs/dragMarker";
-import FilterButton from "../svgs/filterButton";
-import Filter from "../overlay/cards/forms/filters";
+// import EditOverlayForm from "../overlay/cards/forms/sightingForm";
+// import AddNewMarker from "../svgs/addNewMarker";
+// import PlaceMarker from "../svgs/placeMarker";
+// import DragMarker from "../svgs/dragMarker";
+// import FilterButton from "../svgs/filterButton";
+// import Filter from "../overlay/cards/forms/filters";
+
+import ActionBar from "./actionBar";
 
 function Map() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -33,6 +35,7 @@ function Map() {
   // Filter params
   // todo: localStorage
   const [filters, setFilters] = useState({
+    setFromLocal: false,
     daysSinceReport: { label: "All time", value: 0 },
     species: [],
   });
@@ -167,14 +170,16 @@ function Map() {
   }, [center]);
 
   // Messy getter/setter for filter localStorage
-  useEffect(async () => {
-    if (typeof window !== "undefined") {
+  useEffect(() => {
+    // setFromLocal allows a listen for state change on filters (the setter)
+    // Used to throttle needless constant resets with localStorage always being truthy, but gets the initial re-render sorted if there ARE locally stored values
+    if (typeof window !== "undefined" && !filters.setFromLocal) {
       const storage = window.localStorage;
       if (
         storage.whaleWatchFilterSpecies ||
         storage.whaleWatchFilterDaysSinceReportTextValue
       ) {
-        const filterState = { ...filters };
+        const filterState = { ...filters, setFromLocal: true };
 
         if (storage.whaleWatchFilterDaysSinceReportTextValue) {
           filterState.daysSinceReport = {
@@ -198,8 +203,10 @@ function Map() {
         setFilters(filterState);
       }
     }
-    return fetchSightings;
-  }, []);
+    return () => {
+      fetchSightings();
+    };
+  }, [filters]);
 
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
@@ -322,117 +329,13 @@ function Map() {
           )}
         </GoogleMap>
       )}
-
-      {/* TODO: Export these all to a taskbar component. */}
-      <div className="absolute bottom-0 flex justify-center align-center w-full mb-4">
-        {/* No edit in progress -- default display*/}
-        {!pageState.active && (
-          <>
-            <div
-              className="cursor-pointer"
-              onClick={() => {
-                setPageState({ ...pageState, active: true });
-              }}
-            >
-              <AddNewMarker classes="h-20 mx-2" />
-            </div>
-            <div
-              className="cursor-pointer"
-              onClick={() => {
-                setPageState({
-                  filter: true,
-                  active: false,
-                  complete: false,
-                  marker: { lat: null, lng: null },
-                });
-              }}
-            >
-              <FilterButton classes="h-20 mx-2" />
-            </div>
-          </>
-        )}
-        {/* ----------------------------------- */}
-        {/* EDIT STATE DISPLAYS: */}
-        {/* ----------------------------------- */}
-
-        {/* Edit has been engaged, but no marker placed */}
-        {pageState.active && pageState.marker.lat === null && (
-          <PlaceMarker classes="h-20 absolute bottom-40 pointer-events-none" />
-        )}
-        {/* A marker has been placed on the map, but the user hasn't locked it in. */}
-        {pageState.active &&
-          pageState.marker.lat !== null &&
-          !pageState.complete && (
-            <div>
-              <DragMarker classes="h-28 absolute bottom-40 pointer-events-none" />
-              <button
-                className="bg-green-500 mx-2 px-2 py-1 text-gray-700 font-bold rounded hover:bg-green-600 hover:text-gray-100 shadow"
-                onClick={() => {
-                  setPageState({ ...pageState, complete: true });
-                }}
-              >
-                Done
-              </button>
-              <button
-                className="bg-red-300 mx-2 px-2 py-1 text-gray-600 font-bold rounded hover:bg-red-600 hover:text-gray-100 shadow"
-                onClick={() => {
-                  setPageState({
-                    ...pageState,
-                    active: false,
-                    complete: false,
-                    marker: { lat: null, lng: null },
-                  });
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          )}
-        {/* The user has clicked 'Done'; render a blank form */}
-        {pageState.complete && (
-          <EditOverlayForm
-            sighting={{
-              id: null,
-              species: {
-                species_id: null,
-                common_name: null,
-              },
-              description: "",
-              latitude: pageState.marker.lat,
-              longitude: pageState.marker.lng,
-            }}
-            speciesList={mapData.species}
-            toggleState={() => {
-              setPageState({
-                ...pageState,
-                active: false,
-                complete: false,
-                marker: { lat: null, lng: null },
-              });
-            }}
-          />
-        )}
-        {/* ----------------------------------- */}
-        {/* FILTER STATE DISPLAYS */}
-        {/* ----------------------------------- */}
-
-        {pageState.filter && (
-          <Filter
-            speciesList={mapData.species}
-            filters={filters}
-            setFilters={setFilters}
-            toggleState={() => {
-              // Cancel all state changes
-              setPageState({
-                filter: false,
-                active: false,
-                complete: false,
-                marker: { lat: null, lng: null },
-              });
-            }}
-          />
-        )}
-      </div>
+      <ActionBar
+        pageState={pageState}
+        setPageState={setPageState}
+        filters={filters}
+        setFilters={setFilters}
+        mapData={mapData}
+      />
     </LoadScript>
   );
 }
