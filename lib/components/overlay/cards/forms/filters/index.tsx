@@ -22,8 +22,6 @@ const SearchFilters = ({ speciesList, setFilters, filters, toggleState }) => {
     }
   }, []);
 
-  console.log(filters);
-
   return (
     <Overlay toggleState={toggleState}>
       <h1>Species list:</h1>
@@ -39,6 +37,24 @@ const SearchFilters = ({ speciesList, setFilters, filters, toggleState }) => {
               id: speciesOption.value,
             };
           });
+
+          const speciesArr = e.map((opt) => {
+            return opt.value;
+          });
+
+          const speciesNameArr = e.map((opt) => {
+            return opt.label;
+          });
+
+          if (typeof window !== "undefined") {
+            window.localStorage.setItem(
+              "whaleWatchFilterSpeciesNames",
+              speciesNameArr
+            );
+
+            window.localStorage.setItem("whaleWatchFilterSpecies", speciesArr);
+          }
+
           setFilters({ ...filters, species: formattedFilters });
         }}
       />
@@ -54,6 +70,16 @@ const SearchFilters = ({ speciesList, setFilters, filters, toggleState }) => {
           { label: "All time", value: 0 },
         ]}
         onChange={(e) => {
+          if (typeof window !== "undefined") {
+            window.localStorage.setItem(
+              "whaleWatchFilterDaysSinceReportTextValue",
+              e.label
+            );
+            window.localStorage.setItem(
+              "whaleWatchFilterDaysSinceReportNumericValue",
+              e.value
+            );
+          }
           setFilters({
             ...filters,
             daysSinceReport: { value: e.value, label: e.label },

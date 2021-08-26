@@ -10,7 +10,6 @@ import PlaceMarker from "../svgs/placeMarker";
 import DragMarker from "../svgs/dragMarker";
 import FilterButton from "../svgs/filterButton";
 import Filter from "../overlay/cards/forms/filters";
-// import species from "pages/info/species";
 
 function Map() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -60,8 +59,6 @@ function Map() {
 
   // Fetches sightings and all species if they haven't been pulled and set into the state yet
   async function fetchSightings() {
-    // TODO: This will eventually need to be queried by the user's search filters.
-
     let sightingRes = null;
     let speciesQueryString = ``;
 
@@ -120,7 +117,7 @@ function Map() {
       sightingRes = await supabase.from("sightings").select("*");
     }
     let data = { ...mapData, sightings: sightingRes.data };
-    // This only really needs to be called once, whereas sightings are live, this throttles needless queries for all species.
+    // This only really needs to be called once, whereas sightings are live, this throttles needless queries for all species as it's only really used to populate forms.
     if (mapData.species === null) {
       const speciesRes = await supabase.from("species").select("*");
       data = { ...data, species: speciesRes.data };
@@ -140,8 +137,6 @@ function Map() {
       supabase.removeSubscription(sightingSubscription);
     };
   }, [filters]);
-
-  console.log(filters);
 
   // -------------------------------------------------------------
   // LOCAL STORAGE
@@ -171,6 +166,44 @@ function Map() {
       }
     }
   }, [center]);
+
+  // Messy getter/setter for filter localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storage = window.localStorage;
+      if (
+        storage.whaleWatchFilterSpecies ||
+        storage.whaleWatchFilterDaysSinceReportTextValue
+      ) {
+        const filterState = { ...filters };
+
+        if (storage.whaleWatchFilterDaysSinceReportTextValue) {
+          filterState.daysSinceReport = {
+            label: storage.whaleWatchFilterDaysSinceReportTextValue,
+            value: storage.whaleWatchFilterDaysSinceReportNumericValue,
+          };
+        }
+
+        if (storage.whaleWatchFilterSpeciesNames) {
+          const filterSpecies = storage.whaleWatchFilterSpecies.split(",");
+          const filterSpeciesNames =
+            storage.whaleWatchFilterSpeciesNames.split(",");
+
+          filterState.species = filterSpecies.map((speciesId, i) => {
+            return {
+              common_name: filterSpeciesNames[i],
+              id: parseInt(speciesId),
+            };
+          });
+        }
+        setFilters(filterState);
+      }
+    }
+    return fetchSightings;
+  }, []);
+
+  console.log("ACTUAL:");
+  console.log(filters);
 
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
@@ -393,6 +426,7 @@ function Map() {
             filters={filters}
             setFilters={setFilters}
             toggleState={() => {
+              // Cancel all state changes
               setPageState({
                 filter: false,
                 active: false,
