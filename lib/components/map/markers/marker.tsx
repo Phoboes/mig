@@ -11,6 +11,7 @@ const DefaultMarker = ({ sighting, active, setActive, speciesList }) => {
     sighting.hoursSinceSeen > 130 ? 0 : 130 - sighting.hoursSinceSeen;
   const timedSaturation = sighting.hoursSinceSeen < 5 ? 40 : 65;
   const fading = sighting.hoursSinceSeen < 180;
+  // TODO: Fix this mess
   const timedHue = fading ? 100 : (sighting.hoursSinceSeen / 24) * 10 * -1;
   const backgroundFill = `hsla(${timedColour},${
     fading ? 100 : timedHue + 100 < 20 ? timedHue - 100 : 20

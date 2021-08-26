@@ -12,7 +12,7 @@ export default function Overlay({ children, toggleState, bg = "bg-white" }) {
         onClick={toggleState}
       >
         <div
-          className="border-2 border-blue-100 rounded-xl px-8 py-4 w-4/5 h-4/5 mt-20 relative bg-gray-100 shadow-xl"
+          className="border-2 border-blue-100 rounded-xl px-8 py-8 w-4/5 h-4/5 mt-20 relative bg-gray-100 shadow-xl overflow-scroll"
           onClick={(e) => {
             // Prevent clicking the child of the overlay from closing the overlay
             e.stopPropagation();

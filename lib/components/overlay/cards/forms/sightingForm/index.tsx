@@ -75,7 +75,7 @@ const FullReport = ({ sighting, toggleState, speciesList }) => {
           )}
 
           <form
-            className="w-80 m-auto text-left"
+            className="w-full max-w-sm  m-auto text-left"
             onSubmit={(e) => {
               e.preventDefault();
             }}
