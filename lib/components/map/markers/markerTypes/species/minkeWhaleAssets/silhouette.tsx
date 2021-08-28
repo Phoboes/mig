@@ -12,8 +12,6 @@ const Silhouette = ({ overlayViewToggleHandler, lat, lng, fill, opacity }) => {
           fillSaturation: 0,
           scale: 0.1,
           anchor: { x: 210, y: 360 },
-          strokeWeight: 2,
-          strokeColor: "rgba(255,255,255, 0.2)",
         }}
         position={{
           lat: lat,

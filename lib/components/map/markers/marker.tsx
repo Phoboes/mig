@@ -18,7 +18,7 @@ const DefaultMarker = ({ sighting, active, setActive, speciesList }) => {
   // HSLA values determined by hours since the last sighting ranging from bright green to red
   const timedColour =
     sighting.hoursSinceSeen > 130 ? 0 : 130 - sighting.hoursSinceSeen;
-  const timedSaturation = sighting.hoursSinceSeen < 5 ? 40 : 65;
+  const timedSaturation = sighting.hoursSinceSeen < 5 ? 50 : 60;
   const fading = sighting.hoursSinceSeen < 180;
   // TODO: Fix this mess
   // const timedHue = fading ? 100 : (sighting.hoursSinceSeen / 24) * 10 * -1;
@@ -28,7 +28,7 @@ const DefaultMarker = ({ sighting, active, setActive, speciesList }) => {
   //   fading ? 100 : timedHue + 100 < 20 ? timedHue - 100 : 20
   // }%,${timedSaturation}%,1)`;
 
-  const backgroundFill = `hsla(${timedColour},${70}%,${timedSaturation}%,0.8)`;
+  const backgroundFill = `hsla(${timedColour},${80}%,${timedSaturation}%,0.9)`;
 
   const overlayViewToggleHandler = () => {
     if (active) {
@@ -44,7 +44,7 @@ const DefaultMarker = ({ sighting, active, setActive, speciesList }) => {
 
   let marker = null;
   const silhouetteFill = "#0f2a3a";
-  const markerFill = "rgba(8,28,152,0.8)";
+  const markerFill = "rgba(8,28,152,0.9)";
 
   const species = speciesList.find((species) => {
     return species.id === sighting.species_id;
