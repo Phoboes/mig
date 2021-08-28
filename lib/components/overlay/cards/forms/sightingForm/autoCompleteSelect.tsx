@@ -1,5 +1,4 @@
 // import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
 import Select from "react-select";
 
 const AutoCompleteSelect = ({ speciesList, formData, setFormData }) => {
