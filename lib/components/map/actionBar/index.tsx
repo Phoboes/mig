@@ -61,7 +61,7 @@ export default function ActionBar({
                 setPageState({ ...pageState, complete: true });
               }}
             >
-              Done
+              Next
             </button>
             <button
               className="bg-red-300 mx-2 px-2 py-1 text-gray-600 font-bold rounded hover:bg-red-600 hover:text-gray-100 shadow"
