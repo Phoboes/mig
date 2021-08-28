@@ -1,5 +1,4 @@
 import Silhouette from "./rightWhaleAssets/silhouette";
-// import FinTips from "./rightWhaleAssets/finTips";
 import BellyFill from "./rightWhaleAssets/bellyFill";
 import DefaultMarker from "../marker";
 import MarkerBackdrop from "../markerBackdrop";
@@ -43,13 +42,6 @@ const RightWhale = ({
         fill={"#1b446d"}
         opacity={1}
       />
-      {/* <FinTips
-        overlayViewToggleHandler={overlayViewToggleHandler}
-        lat={lat}
-        lng={lng}
-        fill={"black"}
-        opacity={1}
-      /> */}
     </>
   );
 };
