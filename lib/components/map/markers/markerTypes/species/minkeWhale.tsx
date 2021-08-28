@@ -1,5 +1,5 @@
 import Silhouette from "./minkeWhaleAssets/silhouette";
-import FinTips from "./minkeWhaleAssets/finTips";
+import FinShadow from "./minkeWhaleAssets/finShadow";
 import BellyFill from "./minkeWhaleAssets/bellyFill";
 import DefaultMarker from "../marker";
 import MarkerBackdrop from "../markerBackdrop";
@@ -40,7 +40,14 @@ const MinkeWhale = ({
         overlayViewToggleHandler={overlayViewToggleHandler}
         lat={lat}
         lng={lng}
-        fill={"lightGrey"}
+        fill={"#0c4a66"}
+        opacity={1}
+      />
+      <FinShadow
+        overlayViewToggleHandler={overlayViewToggleHandler}
+        lat={lat}
+        lng={lng}
+        fill={"#010f16"}
         opacity={1}
       />
     </>
