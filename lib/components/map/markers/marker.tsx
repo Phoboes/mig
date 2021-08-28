@@ -28,7 +28,7 @@ const DefaultMarker = ({ sighting, active, setActive, speciesList }) => {
   //   fading ? 100 : timedHue + 100 < 20 ? timedHue - 100 : 20
   // }%,${timedSaturation}%,1)`;
 
-  const backgroundFill = `hsla(${timedColour},${60}%,${timedSaturation}%,0.8)`;
+  const backgroundFill = `hsla(${timedColour},${70}%,${timedSaturation}%,0.8)`;
 
   const overlayViewToggleHandler = () => {
     if (active) {

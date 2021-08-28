@@ -1,5 +1,4 @@
 import Silhouette from "./spermWhaleAssets/silhouette";
-import FinTips from "./spermWhaleAssets/finTips";
 import BellyFill from "./spermWhaleAssets/bellyFill";
 import DefaultMarker from "../markerPin";
 import MarkerBackdrop from "../markerPinBackdrop";
