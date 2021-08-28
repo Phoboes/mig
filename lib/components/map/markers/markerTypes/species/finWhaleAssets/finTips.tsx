@@ -10,7 +10,7 @@ const FinTips = ({ overlayViewToggleHandler, lat, lng, fill, opacity }) => {
           fillColor: fill,
           fillOpacity: opacity,
           fillSaturation: 0,
-          scale: 0.12,
+          scale: 0.11,
           strokeWeight: 0,
           anchor: { x: 240, y: 310 },
         }}
@@ -26,9 +26,9 @@ const FinTips = ({ overlayViewToggleHandler, lat, lng, fill, opacity }) => {
           fillColor: fill,
           fillOpacity: opacity,
           fillSaturation: 0,
-          scale: 0.12,
+          scale: 0.1,
           strokeWeight: 0,
-          anchor: { x: 240, y: 310 },
+          anchor: { x: 240, y: 340 },
         }}
         position={{
           lat: lat,

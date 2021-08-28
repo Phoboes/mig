@@ -12,7 +12,7 @@ const BellyFill = ({ overlayViewToggleHandler, lat, lng, fill, opacity }) => {
           fillSaturation: 0,
           scale: 0.1,
           strokeWeight: 0,
-          anchor: { x: 240, y: 420 },
+          anchor: { x: 240, y: 380 },
         }}
         position={{
           lat: lat,
@@ -28,7 +28,7 @@ const BellyFill = ({ overlayViewToggleHandler, lat, lng, fill, opacity }) => {
           fillSaturation: 0,
           scale: 0.1,
           strokeWeight: 0,
-          anchor: { x: 240, y: 420 },
+          anchor: { x: 240, y: 380 },
         }}
         position={{
           lat: lat,

@@ -12,7 +12,7 @@ const finShadow = ({ overlayViewToggleHandler, lat, lng, fill, opacity }) => {
           fillSaturation: 0,
           scale: 0.1,
           strokeWeight: 0,
-          anchor: { x: 210, y: 400 },
+          anchor: { x: 210, y: 360 },
         }}
         position={{
           lat: lat,

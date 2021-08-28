@@ -17,9 +17,10 @@ const DefaultMarker = ({
           // fillOpacity: sighting.editMode ? 0.4 : 1,
           fillColor: fill,
           fillOpacity: opacity,
-          scale: 0.095,
-          strokeWeight: 0,
+          scale: 0.08,
           anchor: { x: 300, y: 655 },
+          strokeColor: "rgba(0,0,0,0.2)",
+          strokeWeight: 2,
         }}
         position={{
           lat: lat,

@@ -1,8 +1,8 @@
 import Silhouette from "./finWhaleAssets/silhouette";
 import FinTips from "./finWhaleAssets/finTips";
 import BellyFill from "./finWhaleAssets/bellyFill";
-import DefaultMarker from "../marker";
-import MarkerBackdrop from "../markerBackdrop";
+import DefaultMarker from "../markerPin";
+import MarkerBackdrop from "../markerPinBackdrop";
 
 const FinWhale = ({
   overlayViewToggleHandler,
@@ -20,36 +20,36 @@ const FinWhale = ({
         lat={lat}
         lng={lng}
         fill={markerFill}
-        opacity={1}
+        opacity={opacity}
       />
       <MarkerBackdrop
         overlayViewToggleHandler={overlayViewToggleHandler}
         lat={lat}
         lng={lng}
         fill={backgroundFill}
-        opacity={1}
+        opacity={opacity}
       />
       <Silhouette
         overlayViewToggleHandler={overlayViewToggleHandler}
         lat={lat}
         lng={lng}
         fill={silhouetteFill}
-        opacity={1}
+        opacity={opacity}
       />
       <BellyFill
         overlayViewToggleHandler={overlayViewToggleHandler}
         lat={lat}
         lng={lng}
         fill={"lightGrey"}
-        opacity={1}
+        opacity={opacity}
       />
-      <FinTips
+      {/* <FinTips
         overlayViewToggleHandler={overlayViewToggleHandler}
         lat={lat}
         lng={lng}
         fill={"black"}
-        opacity={1}
-      />
+        opacity={opacity}
+      /> */}
     </>
   );
 };

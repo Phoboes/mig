@@ -1,7 +1,7 @@
 import Silhouette from "./humpbackWhaleAssets/silhouette";
 import BellyFill from "./humpbackWhaleAssets/bellyFill";
-import DefaultMarker from "../marker";
-import MarkerBackdrop from "../markerBackdrop";
+import DefaultMarker from "../markerPin";
+import MarkerBackdrop from "../markerPinBackdrop";
 
 const HumpbackWhale = ({
   overlayViewToggleHandler,
@@ -19,28 +19,28 @@ const HumpbackWhale = ({
         lat={lat}
         lng={lng}
         fill={markerFill}
-        opacity={1}
+        opacity={opacity}
       />
       <MarkerBackdrop
         overlayViewToggleHandler={overlayViewToggleHandler}
         lat={lat}
         lng={lng}
         fill={backgroundFill}
-        opacity={1}
+        opacity={opacity}
       />
       <Silhouette
         overlayViewToggleHandler={overlayViewToggleHandler}
         lat={lat}
         lng={lng}
         fill={silhouetteFill}
-        opacity={1}
+        opacity={opacity}
       />
       <BellyFill
         overlayViewToggleHandler={overlayViewToggleHandler}
         lat={lat}
         lng={lng}
         fill={"lightGrey"}
-        opacity={1}
+        opacity={opacity}
       />
     </>
   );

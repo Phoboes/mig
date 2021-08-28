@@ -10,7 +10,7 @@ const BellyFill = ({ overlayViewToggleHandler, lat, lng, fill, opacity }) => {
           fillColor: fill,
           fillOpacity: opacity,
           fillSaturation: 0,
-          scale: 0.1,
+          scale: 0.09,
           strokeWeight: 0,
           anchor: { x: 250, y: 420 },
         }}

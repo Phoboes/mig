@@ -21,10 +21,14 @@ const DefaultMarker = ({ sighting, active, setActive, speciesList }) => {
   const timedSaturation = sighting.hoursSinceSeen < 5 ? 40 : 65;
   const fading = sighting.hoursSinceSeen < 180;
   // TODO: Fix this mess
-  const timedHue = fading ? 100 : (sighting.hoursSinceSeen / 24) * 10 * -1;
-  const backgroundFill = `hsla(${timedColour},${
-    fading ? 100 : timedHue + 100 < 20 ? timedHue - 100 : 20
-  }%,${timedSaturation}%,1)`;
+  // const timedHue = fading ? 100 : (sighting.hoursSinceSeen / 24) * 10 * -1;
+  const timedHue = 65;
+
+  // const backgroundFill = `hsla(${timedColour},${
+  //   fading ? 100 : timedHue + 100 < 20 ? timedHue - 100 : 20
+  // }%,${timedSaturation}%,1)`;
+
+  const backgroundFill = `hsla(${timedColour},${60}%,${timedSaturation}%,0.8)`;
 
   const overlayViewToggleHandler = () => {
     if (active) {
@@ -40,7 +44,7 @@ const DefaultMarker = ({ sighting, active, setActive, speciesList }) => {
 
   let marker = null;
   const silhouetteFill = "#0f2a3a";
-  const markerFill = "#d32e02";
+  const markerFill = "rgba(8,28,152,0.8)";
 
   const species = speciesList.find((species) => {
     return species.id === sighting.species_id;
@@ -49,85 +53,85 @@ const DefaultMarker = ({ sighting, active, setActive, speciesList }) => {
   if (species.common_name === "Humpback Whale") {
     marker = (
       <HumpbackWhale
-        markerFill={markerFill}
+        markerFill={sighting.editMode ? "grey" : markerFill}
         backgroundFill={backgroundFill}
         lat={parseFloat(sighting.latitude)}
         lng={parseFloat(sighting.longitude)}
         overlayViewToggleHandler={overlayViewToggleHandler}
         silhouetteFill={silhouetteFill}
-        opacity={1}
+        opacity={sighting.editMode ? 0.1 : 1}
       />
     );
   } else if (species.common_name === "Blue Whale") {
     marker = (
       <BlueWhale
-        markerFill={markerFill}
+        markerFill={sighting.editMode ? "grey" : markerFill}
         backgroundFill={backgroundFill}
         lat={parseFloat(sighting.latitude)}
         lng={parseFloat(sighting.longitude)}
         overlayViewToggleHandler={overlayViewToggleHandler}
         silhouetteFill={silhouetteFill}
-        opacity={1}
+        opacity={sighting.editMode ? 0.1 : 1}
       />
     );
   } else if (species.common_name === "Right Whale") {
     marker = (
       <RightWhale
-        markerFill={markerFill}
+        markerFill={sighting.editMode ? "grey" : markerFill}
         backgroundFill={backgroundFill}
         lat={parseFloat(sighting.latitude)}
         lng={parseFloat(sighting.longitude)}
         overlayViewToggleHandler={overlayViewToggleHandler}
         silhouetteFill={silhouetteFill}
-        opacity={1}
+        opacity={sighting.editMode ? 0.1 : 1}
       />
     );
   } else if (species.common_name === "Fin Whale") {
     marker = (
       <FinWhale
-        markerFill={markerFill}
+        markerFill={sighting.editMode ? "grey" : markerFill}
         backgroundFill={backgroundFill}
         lat={parseFloat(sighting.latitude)}
         lng={parseFloat(sighting.longitude)}
         overlayViewToggleHandler={overlayViewToggleHandler}
         silhouetteFill={silhouetteFill}
-        opacity={1}
+        opacity={sighting.editMode ? 0.1 : 1}
       />
     );
   } else if (species.common_name === "Sperm Whale") {
     marker = (
       <SpermWhale
-        markerFill={markerFill}
+        markerFill={sighting.editMode ? "grey" : markerFill}
         backgroundFill={backgroundFill}
         lat={parseFloat(sighting.latitude)}
         lng={parseFloat(sighting.longitude)}
         overlayViewToggleHandler={overlayViewToggleHandler}
         silhouetteFill={silhouetteFill}
-        opacity={1}
+        opacity={sighting.editMode ? 0.1 : 1}
       />
     );
   } else if (species.common_name === "Minke Whale") {
     marker = (
       <MinkeWhale
-        markerFill={markerFill}
+        markerFill={sighting.editMode ? "grey" : markerFill}
         backgroundFill={backgroundFill}
         lat={parseFloat(sighting.latitude)}
         lng={parseFloat(sighting.longitude)}
         overlayViewToggleHandler={overlayViewToggleHandler}
         silhouetteFill={silhouetteFill}
-        opacity={1}
+        opacity={sighting.editMode ? 0.1 : 1}
       />
     );
   } else {
     marker = (
       <DefaultWhale
-        markerFill={markerFill}
+        markerFill={sighting.editMode ? "grey" : markerFill}
         backgroundFill={backgroundFill}
         lat={parseFloat(sighting.latitude)}
         lng={parseFloat(sighting.longitude)}
         overlayViewToggleHandler={overlayViewToggleHandler}
         silhouetteFill={silhouetteFill}
-        opacity={1}
+        opacity={sighting.editMode ? 0.1 : 1}
       />
     );
   }

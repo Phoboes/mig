@@ -1,5 +1,5 @@
-import DefaultMarker from "../marker";
-import MarkerBackdrop from "../markerBackdrop";
+import DefaultMarker from "../markerPin";
+import MarkerBackdrop from "../markerPinBackdrop";
 
 const defaultWhale = ({
   overlayViewToggleHandler,
@@ -17,14 +17,14 @@ const defaultWhale = ({
         lat={lat}
         lng={lng}
         fill={backgroundFill}
-        opacity={1}
+        opacity={opacity}
       />
       <DefaultMarker
         overlayViewToggleHandler={overlayViewToggleHandler}
         lat={lat}
         lng={lng}
         fill={markerFill}
-        opacity={1}
+        opacity={opacity}
       />
     </>
   );
