@@ -40,7 +40,7 @@ const SpermWhale = ({
         overlayViewToggleHandler={overlayViewToggleHandler}
         lat={lat}
         lng={lng}
-        fill={"lightGrey"}
+        fill={"#1b446d"}
         opacity={1}
       />
     </>
