@@ -4,14 +4,11 @@ import { createClient } from "@supabase/supabase-js";
 import moment from "moment";
 import Markers from "components/map/markers/markers";
 import mapStyle from "./mapStyles/water";
-// import EditOverlayForm from "../overlay/cards/forms/sightingForm";
-// import AddNewMarker from "../svgs/addNewMarker";
-// import PlaceMarker from "../svgs/placeMarker";
-// import DragMarker from "../svgs/dragMarker";
-// import FilterButton from "../svgs/filterButton";
-// import Filter from "../overlay/cards/forms/filters";
 
 import ActionBar from "./actionBar";
+
+import FinWhaleMarker from "./markers/markerTypes/species/finWhale";
+import HumpbackWhaleMarker from "./markers/markerTypes/species/humpbackWhale";
 
 function Map() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;

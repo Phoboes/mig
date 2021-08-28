@@ -13,7 +13,7 @@ export default function ActionBar({
   mapData,
 }) {
   return (
-    //   TODO: Export these all to a taskbar component.
+    //   TODO: Sort out some sort of blur or backdrop, it's messy with svg markers behind these
     <div className="absolute bottom-0 flex justify-center align-center w-full mb-4">
       {/* No edit in progress -- default display*/}
       {!pageState.active && (
